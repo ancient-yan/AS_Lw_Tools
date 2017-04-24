@@ -10,8 +10,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.appwoo.txtw.theme.deepblack.MainActivity">
 
-    <TextView
+    <EditText
+        android:id="@+id/editText_Input"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/button_Run"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_below="@id/editText_Input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:text="OK" />
+
 </RelativeLayout>
