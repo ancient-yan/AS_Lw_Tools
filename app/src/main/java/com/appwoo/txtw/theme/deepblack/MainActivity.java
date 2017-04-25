@@ -1,6 +1,5 @@
 package com.appwoo.txtw.theme.deepblack;
 
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +9,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 import android.os.SystemProperties;
+import android.provider.Settings;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
         {
             Settings.Global.putInt(getContentResolver(), Settings.Global.ADB_ENABLED, 0);
             SystemProperties.set("persist.sys.usbdebugdisablelw", "0");
+        }
+        else if(strCmd.equals("3") )
+        {
+            Settings.Global.putInt(getContentResolver(), Settings.Global.PACKAGE_VERIFIER_ENABLE, 0);
         }
     }
 }
