@@ -266,5 +266,68 @@ public class MainActivity extends AppCompatActivity {
 
             Log.e(TAG, "memusage : " + memusage);
         }
+        else if(strCmd.equals("1008") )
+        {
+            int Uid  = getUserId();
+            Log.e(TAG, "Uid : " + Uid);
+
+            {
+                //String cm = "reboot";
+                //String cm = "mount";
+                String cm = "mkdir /data/data/com.browser.txtw/files/yan";
+                //String cm = "/data/local/hello";
+                //String cm = "mount -o remount /system";
+                //String cm = "top";
+
+                Log.e(TAG, "cm : " + cm);
+
+                String msg = null;
+
+                int ch;
+                try {
+                    Process p = Runtime.getRuntime().exec(cm);
+                    InputStream in = p.getInputStream();
+                    InputStream err = p.getErrorStream();
+                    StringBuffer sb = new StringBuffer(1024);
+
+                    while ((ch = in.read()) != -1) {
+                        sb.append((char) ch);
+                    }
+
+                    while ((ch = err.read()) != -1) {
+                        sb.append((char) ch);
+                    }
+
+                    msg = sb.toString();
+                } catch (IOException e) {
+                    Log.v(TAG, e.toString());
+                }
+
+                Log.e(TAG, "msg : [" + msg + "]");
+            }
+        }
+        else if(strCmd.equals("1009") )
+        {
+            //String dir = "/cache/one/two/three";
+            String dir = "/data/data/com.browser.txtw/files/yanqiang";
+            Log.e(TAG, "dir : " + dir);
+
+            File file = new File(dir);
+            boolean bMkdir = false;
+            bMkdir = file.mkdirs();
+            Log.e(TAG, "bMkdir : " + bMkdir);
+        }
+        else if(strCmd.equals("1010") )
+        {
+            Load load = new Load();
+
+            int nTmp = load.addInt(1, 6);
+
+            Log.e(TAG, "nTmp : " + nTmp);
+
+            Log.e(TAG, "Mkdir : " + load.Mkdir() );
+
+            Log.e(TAG, "Mount : " + load.Mount() );
+        }
     }
 }

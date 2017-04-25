@@ -22,6 +22,14 @@
             android:authorities="com.txtw.provider.scan.question.DELL"
             />
 
+        <service android:name=".GetTopService"
+            android:exported="true" >
+        </service>
+
+        <service android:name=".BackKeyService"
+            android:exported="true" >
+        </service>
+
     </application>
 
 </manifest>
