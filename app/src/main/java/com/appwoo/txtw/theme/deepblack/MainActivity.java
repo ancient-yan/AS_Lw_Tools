@@ -1,15 +1,15 @@
 package com.appwoo.txtw.theme.deepblack;
 
-import android.content.DialogInterface;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import java.util.ArrayList;
 import java.util.List;
+import android.os.SystemProperties;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,5 +62,15 @@ public class MainActivity extends AppCompatActivity {
         strCmd = (String)lVars.get(0);
 
         Log.e(TAG, " strCmd : " + strCmd);
+        if(strCmd.equals("1") )
+        {
+            SystemProperties.set("persist.sys.usbdebugdisablelw", "1");
+            Settings.Global.putInt(getContentResolver(), Settings.Global.ADB_ENABLED, 1);
+        }
+        else if(strCmd.equals("2") )
+        {
+            Settings.Global.putInt(getContentResolver(), Settings.Global.ADB_ENABLED, 0);
+            SystemProperties.set("persist.sys.usbdebugdisablelw", "0");
+        }
     }
 }
