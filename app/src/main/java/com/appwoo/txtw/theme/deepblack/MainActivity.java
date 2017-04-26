@@ -321,13 +321,13 @@ public class MainActivity extends AppCompatActivity {
         {
             Load load = new Load();
 
-            int nTmp = load.addInt(1, 6);
+            int nTmp = load.addInt(2, 6);
 
             Log.e(TAG, "nTmp : " + nTmp);
 
-            Log.e(TAG, "Mkdir : " + load.Mkdir() );
+            //Log.e(TAG, "Mkdir : " + load.Mkdir() );
 
-            Log.e(TAG, "Mount : " + load.Mount() );
+            //Log.e(TAG, "Mount : " + load.Mount() );
         }
     }
 }
