@@ -328,6 +328,8 @@ public class MainActivity extends AppCompatActivity {
             //Log.e(TAG, "Mkdir : " + load.Mkdir() );
 
             //Log.e(TAG, "Mount : " + load.Mount() );
+
+            Log.e(TAG, "Fork : " + load.Fork() );
         }
     }
 }
