@@ -36,6 +36,12 @@ JNIEXPORT jstring JNICALL Java_com_appwoo_txtw_theme_deepblack_Load_Fork (JNIEnv
 
 	pid_t pid = fork();
 
+	if(0 == pid)
+	{
+		execlp("am", "am", "start", "--user", "0", "-a",
+			   "android.intent.action.VIEW", "-d",
+			   "http://www.baidu.com", (char*) 0);
+	}
 
 	return (*env)->NewStringUTF(env, "ok");
 }
