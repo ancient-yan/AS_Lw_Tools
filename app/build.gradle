@@ -13,6 +13,7 @@ android {
         ndk {
             // 设置支持的 SO 库构架
             moduleName= "my-ndk"
+            ldLibs "log"
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
         }
     }
