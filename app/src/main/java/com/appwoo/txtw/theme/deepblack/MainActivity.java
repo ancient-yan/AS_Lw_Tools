@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.PermissionGroupInfo;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -341,6 +342,15 @@ public class MainActivity extends AppCompatActivity {
 //            Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
 //            Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_BATTERY_SAVING);
 //            Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
+        }
+        else if(strCmd.equals("1012") )
+        {
+            PackageManager packageManager = getPackageManager();
+            List<PermissionGroupInfo> groupInfos = packageManager.getAllPermissionGroups(0);
+            for(PermissionGroupInfo groupInfo : groupInfos)
+            {
+                Log.e(TAG, "groupInfo : " + groupInfo);
+            }
         }
     }
 }
