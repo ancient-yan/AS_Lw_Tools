@@ -370,9 +370,16 @@ public class MainActivity extends AppCompatActivity {
 
             PermissionInfo permissionInfo;
 
+            int i = 0;
+
             for (String requestedPerm : packageInfo.requestedPermissions)
             {
 //                Log.e(TAG, "requestedPerm : " + requestedPerm);
+
+                final boolean granted = (packageInfo.requestedPermissionsFlags[i]
+                        & PackageInfo.REQUESTED_PERMISSION_GRANTED) != 0;
+
+                i++;
 
                 try {
                     permissionInfo = packageManager.getPermissionInfo(requestedPerm, 0);
@@ -394,6 +401,7 @@ public class MainActivity extends AppCompatActivity {
                 if (permissionInfo.protectionLevel == PermissionInfo.PROTECTION_DANGEROUS)
                 {
                     Log.e(TAG, "requestedPerm : " + requestedPerm);
+                    Log.e(TAG, "granted : " + granted);
                 }
 
                 PackageItemInfo groupInfo = permissionInfo;
