@@ -5,8 +5,11 @@ import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageItemInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionGroupInfo;
+import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -350,6 +353,59 @@ public class MainActivity extends AppCompatActivity {
             for(PermissionGroupInfo groupInfo : groupInfos)
             {
                 Log.e(TAG, "groupInfo : " + groupInfo);
+            }
+        }
+        else if(strCmd.equals("1013") )
+        {
+            PackageManager packageManager = getPackageManager();
+            PackageInfo packageInfo = null;
+
+            try {
+                packageInfo = packageManager.getPackageInfo("com.freeme.freemelite", PackageManager.GET_PERMISSIONS);
+            } catch (PackageManager.NameNotFoundException e) {
+                Log.e(TAG, "No package : " + e);
+            }
+
+            if(null == packageInfo) return;
+
+            PermissionInfo permissionInfo;
+
+            for (String requestedPerm : packageInfo.requestedPermissions)
+            {
+//                Log.e(TAG, "requestedPerm : " + requestedPerm);
+
+                try {
+                    permissionInfo = packageManager.getPermissionInfo(requestedPerm, 0);
+                } catch (PackageManager.NameNotFoundException e) {
+//                    Log.e(TAG, "No permissionInfo : " + e);
+
+                    continue;
+                }
+
+                if(null == permissionInfo)
+                {
+                    Log.e(TAG, "null == permissionInfo");
+
+                    continue;
+                }
+
+//                Log.e(TAG, "protectionLevel : " + permissionInfo.protectionLevel);
+
+                if (permissionInfo.protectionLevel == PermissionInfo.PROTECTION_DANGEROUS)
+                {
+                    Log.e(TAG, "requestedPerm : " + requestedPerm);
+                }
+
+                PackageItemInfo groupInfo = permissionInfo;
+                if (permissionInfo.group != null) {
+                    try {
+                        groupInfo = getPackageManager().getPermissionGroupInfo(
+                                permissionInfo.group, 0);
+                    } catch (PackageManager.NameNotFoundException e) {
+                    }
+
+                    Log.e(TAG, "groupInfo.name : " + groupInfo.name);
+                }
             }
         }
     }
