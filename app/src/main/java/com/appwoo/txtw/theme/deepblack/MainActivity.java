@@ -426,5 +426,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        else if(strCmd.equals("1014") )
+        {
+            PackageManager packageManager = getPackageManager();
+            PackageInfo packageInfo = null;
+
+            try {
+                packageInfo = packageManager.getPackageInfo("com.freeme.freemelite", PackageManager.GET_PERMISSIONS);
+            } catch (PackageManager.NameNotFoundException e) {
+                Log.e(TAG, "No package : " + e);
+            }
+
+            final int uid = packageInfo.applicationInfo.uid;
+
+            Log.e(TAG, "uid : " + uid);
+
+            final int appOp = AppOpsManager.permissionToOpCode("android.permission.ACCESS_FINE_LOCATION");
+            Log.e(TAG, "appOp : " + appOp);
+            //getSystemService(AppOpsManager.class).setUidMode(appOp, uid, AppOpsManager.MODE_ALLOWED);
+            getSystemService(AppOpsManager.class).setUidMode(appOp, uid, AppOpsManager.MODE_IGNORED);
+        }
     }
 }
