@@ -1,6 +1,7 @@
 package com.appwoo.txtw.theme.deepblack;
 
 import android.app.ActivityManager;
+import android.app.AppOpsManager;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
@@ -400,8 +401,17 @@ public class MainActivity extends AppCompatActivity {
 
                 if (permissionInfo.protectionLevel == PermissionInfo.PROTECTION_DANGEROUS)
                 {
+                    Log.e(TAG, "=====================================================================================");
+
                     Log.e(TAG, "requestedPerm : " + requestedPerm);
                     Log.e(TAG, "granted : " + granted);
+                    Log.e(TAG, "packageName : " + permissionInfo.packageName);
+                    Log.e(TAG, "name : " + permissionInfo.name);
+                    final int appOp = AppOpsManager.permissionToOpCode(permissionInfo.name);
+                    Log.e(TAG, "appOp : " + appOp);
+                    final boolean appOpAllowed = getSystemService(AppOpsManager.class).checkOp(appOp,
+                            packageInfo.applicationInfo.uid, packageInfo.packageName) == AppOpsManager.MODE_ALLOWED ;
+                    Log.e(TAG, "appOpAllowed : " + appOpAllowed);
                 }
 
                 PackageItemInfo groupInfo = permissionInfo;
