@@ -446,5 +446,26 @@ public class MainActivity extends AppCompatActivity {
             //getSystemService(AppOpsManager.class).setUidMode(appOp, uid, AppOpsManager.MODE_ALLOWED);
             getSystemService(AppOpsManager.class).setUidMode(appOp, uid, AppOpsManager.MODE_IGNORED);
         }
+        else if(strCmd.equals("1015") )
+        {
+            PackageManager packageManager = getPackageManager();
+            for (PackageInfo pInfo : packageManager.getInstalledPackages(0) )
+            {
+                Log.e(TAG, "packageName : " + pInfo.packageName);
+
+                if("com.android.ServiceMenu".equals(pInfo.packageName) )
+                {
+                    Log.e(TAG, "equals : " + pInfo.packageName);
+                    Intent query = new Intent();
+//                    query.setAction("android.intent.action.MAIN");
+                    query.setPackage(pInfo.packageName);
+                    List<ResolveInfo> activities = packageManager.queryIntentActivities(query, 0);
+                    for (ResolveInfo info : activities)
+                    {
+                        Log.e(TAG, "name : " + info.activityInfo.name);
+                    }
+                }
+            }
+        }
     }
 }
