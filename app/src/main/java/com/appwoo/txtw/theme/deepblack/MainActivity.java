@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PermissionGroupInfo;
 import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
+import android.content.pm.Signature;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -465,6 +466,23 @@ public class MainActivity extends AppCompatActivity {
                         Log.e(TAG, "name : " + info.activityInfo.name);
                     }
                 }
+            }
+        }
+        else if(strCmd.equals("1016") )
+        {
+            PackageManager packageManager = getPackageManager();
+            PackageInfo packageInfo = null;
+
+            try {
+                packageInfo = packageManager.getPackageInfo("com.android.settings", PackageManager.GET_SIGNATURES);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+            Signature signatures[] = packageInfo.signatures;
+
+            for (Signature signature : signatures)
+            {
+                Log.e(TAG, "signature : [" + signature.toCharsString() + "]" );
             }
         }
     }
