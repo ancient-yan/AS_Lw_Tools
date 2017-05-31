@@ -24,9 +24,11 @@ public class Tools {
 
             MessageDigest md = null;
             MessageDigest md2 = null;
+            MessageDigest md3 = null;
             try {
                 md = MessageDigest.getInstance("MD5");
                 md2 = MessageDigest.getInstance("SHA1");
+                md3 = MessageDigest.getInstance("SHA256");
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
@@ -38,6 +40,10 @@ public class Tools {
             byte[] b2 = md2.digest(cert.getEncoded());
             String key2 = byte2HexFormatted(b2);
             Log.e(TAG, "key2 : " + key2);
+
+            byte[] b3 = md3.digest(cert.getEncoded());
+            String key3 = byte2HexFormatted(b3);
+            Log.e(TAG, "key3 : " + key3);
 
         } catch (CertificateException e) {
             e.printStackTrace();
