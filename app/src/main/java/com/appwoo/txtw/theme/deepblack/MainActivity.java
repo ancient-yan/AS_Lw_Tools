@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import android.os.SystemProperties;
 import android.provider.Settings;
+import com.appwoo.txtw.theme.deepblack.Tools;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -475,6 +476,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 packageInfo = packageManager.getPackageInfo("com.android.settings", PackageManager.GET_SIGNATURES);
+            //      packageInfo = packageManager.getPackageInfo("com.android.mms", PackageManager.GET_SIGNATURES);
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
@@ -483,6 +485,7 @@ public class MainActivity extends AppCompatActivity {
             for (Signature signature : signatures)
             {
                 Log.e(TAG, "signature : [" + signature.toCharsString() + "]" );
+                Tools.parseSignature(signature.toByteArray() );
             }
         }
     }
