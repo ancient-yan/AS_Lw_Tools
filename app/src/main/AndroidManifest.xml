@@ -3,6 +3,8 @@
     android:sharedUserId="android.uid.system"
     package="com.appwoo.txtw.theme.deepblack">
 
+    <uses-permission android:name="android.permission.PACKAGE_VERIFICATION_AGENT" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,6 +31,16 @@
         <service android:name=".BackKeyService"
             android:exported="true" >
         </service>
+
+        <receiver android:name="com.appwoo.txtw.theme.deepblack.PackageVerifyReceiver" android:excludeFromRecents="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_NEEDS_VERIFICATION" />
+                <data android:mimeType="application/vnd.android.package-archive"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.package_verification.result" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

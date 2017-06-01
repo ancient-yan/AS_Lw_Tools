@@ -522,5 +522,22 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "info : " + info);
             }
         }
+        else if(strCmd.equals("1019") )
+        {
+            final String PACKAGE_MIME_TYPE = "application/vnd.android.package-archive";
+
+            PackageManager packageManager = getPackageManager();
+            final Intent verification = new Intent(Intent.ACTION_PACKAGE_NEEDS_VERIFICATION);
+            verification.setType(PACKAGE_MIME_TYPE);
+
+            final List<ResolveInfo> receivers = packageManager.queryBroadcastReceivers(verification, 0);
+
+            Log.e(TAG, "receivers.size : " + receivers.size() );
+
+            for (ResolveInfo info : receivers)
+            {
+                Log.e(TAG, "info : " + info);
+            }
+        }
     }
 }
