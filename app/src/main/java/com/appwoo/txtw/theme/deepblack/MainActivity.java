@@ -490,12 +490,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(strCmd.equals("1017") )
         {
-            final String PACKAGE_MIME_TYPE = "application/vnd.android.package-archive";
-
             PackageManager packageManager = getPackageManager();
             final Intent verification = new Intent(Intent.ACTION_BOOT_COMPLETED);
-           // verification.setType(PACKAGE_MIME_TYPE);
-            //verification.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             final List<ResolveInfo> receivers = packageManager.queryBroadcastReceivers(verification, 0);
 
