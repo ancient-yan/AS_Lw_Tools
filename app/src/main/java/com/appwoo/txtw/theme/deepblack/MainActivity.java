@@ -560,6 +560,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             Log.e(TAG, "apk.packageName : " + apk.packageName);
+            Log.e(TAG, "apk.codePath : " + apk.codePath);
+            Log.e(TAG, "apk.splitName : " + apk.splitName);
+            Log.e(TAG, "apk.versionCode : " + apk.versionCode);
 
             Signature signatures[] = apk.signatures;
             for (Signature signature : signatures)
