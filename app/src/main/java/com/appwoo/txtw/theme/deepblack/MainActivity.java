@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageItemInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageParser;
 import android.content.pm.PermissionGroupInfo;
 import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
@@ -538,6 +539,27 @@ public class MainActivity extends AppCompatActivity {
             {
                 Log.e(TAG, "info : " + info);
             }
+        }
+        else if(strCmd.equals("1020") )
+        {
+            File file = new File("/sdcard/Download/baidu.apk");
+            if(file.exists() )
+            {
+                Log.e(TAG, "exists : " + file + "   ok");
+            }
+            else
+            {
+                Log.e(TAG, "exists : " + file + "   fail");
+            }
+
+            PackageParser.ApkLite apk = null;
+            try {
+                apk = PackageParser.parseApkLite(file, 0);
+            } catch (PackageParser.PackageParserException e) {
+                e.printStackTrace();
+            }
+
+            Log.e(TAG, "apk.packageName : " + apk.packageName);
         }
     }
 }
