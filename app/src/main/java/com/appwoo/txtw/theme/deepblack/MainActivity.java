@@ -554,12 +554,19 @@ public class MainActivity extends AppCompatActivity {
 
             PackageParser.ApkLite apk = null;
             try {
-                apk = PackageParser.parseApkLite(file, 0);
+                apk = PackageParser.parseApkLite(file, PackageParser.PARSE_COLLECT_CERTIFICATES);
             } catch (PackageParser.PackageParserException e) {
                 e.printStackTrace();
             }
 
             Log.e(TAG, "apk.packageName : " + apk.packageName);
+
+            Signature signatures[] = apk.signatures;
+            for (Signature signature : signatures)
+            {
+                Log.e(TAG, "signature : [" + signature.toCharsString() + "]" );
+                Tools.parseSignature(signature.toByteArray() );
+            }
         }
     }
 }
