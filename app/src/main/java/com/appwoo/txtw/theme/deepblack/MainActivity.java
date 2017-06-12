@@ -6,6 +6,8 @@ import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.IPackageDeleteObserver;
+import android.content.pm.IPackageManager;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageItemInfo;
 import android.content.pm.PackageManager;
@@ -15,6 +17,8 @@ import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.net.Uri;
+import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -570,6 +574,26 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "signature : [" + signature.toCharsString() + "]" );
                 Tools.parseSignature(signature.toByteArray() );
             }
+        }
+        else if(strCmd.equals("1021") )
+        {
+            IPackageManager packageManager =
+                    IPackageManager.Stub.asInterface(ServiceManager.getService("package"));
+            PackageDeleteObserver observer = new PackageDeleteObserver();
+
+            try {
+                packageManager.deletePackageAsUser("com.softboy.swf20", observer, 0, 0);
+//                packageManager.deletePackageAsUser("com.appwoo.txtw.theme.deepblack", observer, 0, 0);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class PackageDeleteObserver extends IPackageDeleteObserver.Stub {
+        public void packageDeleted(String packageName, int returnCode) {
+            Log.e(TAG, "packageName : " + packageName);
+            Log.e(TAG, "returnCode : " + returnCode);
         }
     }
 }
