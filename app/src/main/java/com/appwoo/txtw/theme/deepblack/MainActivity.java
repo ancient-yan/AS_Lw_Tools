@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.IPackageDeleteObserver;
+import android.content.pm.IPackageInstallObserver;
 import android.content.pm.IPackageManager;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageItemInfo;
@@ -588,12 +589,32 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        else if(strCmd.equals("1022") )
+        {
+            PackageManager packageManager = getPackageManager();
+            PackageInstallObserver observer = new PackageInstallObserver();
+
+            Uri uri = Uri.fromFile(new File("/sdcard/Download/zs_flash.apk") );
+
+            Log.e(TAG, "uri : " + uri);
+
+            packageManager.installPackage(uri, observer,PackageManager.INSTALL_REPLACE_EXISTING, "");
+        }
     }
 
     class PackageDeleteObserver extends IPackageDeleteObserver.Stub {
         public void packageDeleted(String packageName, int returnCode) {
             Log.e(TAG, "packageName : " + packageName);
             Log.e(TAG, "returnCode : " + returnCode);
+            Log.e(TAG, "DELETE_SUCCEEDED : " + PackageManager.DELETE_SUCCEEDED);
+        }
+    }
+
+    class PackageInstallObserver extends IPackageInstallObserver.Stub {
+        public void packageInstalled(String packageName, int returnCode) {
+            Log.e(TAG, "packageName : " + packageName);
+            Log.e(TAG, "returnCode : " + returnCode);
+            Log.e(TAG, "INSTALL_SUCCEEDED : " + PackageManager.INSTALL_SUCCEEDED);
         }
     }
 }
