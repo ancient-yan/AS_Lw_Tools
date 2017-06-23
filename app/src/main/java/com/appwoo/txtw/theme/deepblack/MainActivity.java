@@ -29,6 +29,8 @@ import android.widget.EditText;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import android.os.SystemProperties;
@@ -599,6 +601,27 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "uri : " + uri);
 
             packageManager.installPackage(uri, observer,PackageManager.INSTALL_REPLACE_EXISTING, "");
+        }
+        else if(strCmd.equals("1023") )
+        {
+            PackageManager packageManager = getPackageManager();
+            boolean bRet = false;
+
+            try {
+                Method method = PackageManager.class.getDeclaredMethod("LwUpdate", new Class[]{});
+                method.setAccessible(true);
+                try {
+                    bRet = (boolean)method.invoke(packageManager, new Object[]{});
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+
+            Log.e(TAG,  "bRet : " + bRet);
         }
     }
 
