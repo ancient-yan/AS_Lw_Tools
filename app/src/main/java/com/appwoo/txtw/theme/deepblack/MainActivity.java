@@ -608,10 +608,31 @@ public class MainActivity extends AppCompatActivity {
             boolean bRet = false;
 
             try {
-                Method method = PackageManager.class.getDeclaredMethod("LwUpdate", new Class[]{});
+                Method method = PackageManager.class.getDeclaredMethod("LwUpdate", new Class[]{String.class, String.class, Boolean.TYPE});
                 method.setAccessible(true);
                 try {
-                    bRet = (boolean)method.invoke(packageManager, new Object[]{});
+                    bRet = (boolean)method.invoke(packageManager, new Object[]{"com.browser.txtw", "android.permission.INTERNET", Boolean.valueOf(false)});
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+
+            Log.e(TAG,  "bRet : " + bRet);
+        }
+        else if(strCmd.equals("1024") )
+        {
+            PackageManager packageManager = getPackageManager();
+            boolean bRet = false;
+
+            try {
+                Method method = PackageManager.class.getDeclaredMethod("LwUpdate", new Class[]{String.class, String.class, Boolean.TYPE});
+                method.setAccessible(true);
+                try {
+                    bRet = (boolean)method.invoke(packageManager, new Object[]{"com.browser.txtw", "android.permission.INTERNET", Boolean.valueOf(true)});
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 } catch (InvocationTargetException e) {
