@@ -608,7 +608,7 @@ public class MainActivity extends AppCompatActivity {
             boolean bRet = false;
 
             try {
-                Method method = PackageManager.class.getDeclaredMethod("LwUpdate", new Class[]{String.class, String.class, Boolean.TYPE});
+                Method method = PackageManager.class.getDeclaredMethod("LwSetPermission", new Class[]{String.class, String.class, Boolean.TYPE});
                 method.setAccessible(true);
                 try {
                     bRet = (boolean)method.invoke(packageManager, new Object[]{"com.browser.txtw", "android.permission.INTERNET", Boolean.valueOf(false)});
@@ -629,7 +629,7 @@ public class MainActivity extends AppCompatActivity {
             boolean bRet = false;
 
             try {
-                Method method = PackageManager.class.getDeclaredMethod("LwUpdate", new Class[]{String.class, String.class, Boolean.TYPE});
+                Method method = PackageManager.class.getDeclaredMethod("LwSetPermission", new Class[]{String.class, String.class, Boolean.TYPE});
                 method.setAccessible(true);
                 try {
                     bRet = (boolean)method.invoke(packageManager, new Object[]{"com.browser.txtw", "android.permission.INTERNET", Boolean.valueOf(true)});
