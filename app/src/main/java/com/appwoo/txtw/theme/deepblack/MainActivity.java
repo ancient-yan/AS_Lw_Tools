@@ -644,6 +644,24 @@ public class MainActivity extends AppCompatActivity {
 
             Log.e(TAG,  "bRet : " + bRet);
         }
+        else if(strCmd.equals("1025") )
+        {
+            PackageManager packageManager = getPackageManager();
+            boolean bRet = false;
+
+            bRet = packageManager.LwSetPermission("com.browser.txtw", "android.permission.INTERNET", false);
+
+            Log.e(TAG,  "bRet : " + bRet);
+        }
+        else if(strCmd.equals("1026") )
+        {
+            PackageManager packageManager = getPackageManager();
+            int nRet = 100;
+
+            nRet = packageManager.LwGetPermission("com.browser.txtw", "android.permission.INTERNET");
+
+            Log.e(TAG,  "nRet : " + nRet);
+        }
     }
 
     class PackageDeleteObserver extends IPackageDeleteObserver.Stub {
