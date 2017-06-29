@@ -649,7 +649,8 @@ public class MainActivity extends AppCompatActivity {
             PackageManager packageManager = getPackageManager();
             boolean bRet = false;
 
-            bRet = packageManager.LwSetPermission("com.browser.txtw", "android.permission.INTERNET", false);
+          //  bRet = packageManager.LwSetPermission("com.browser.txtw", "android.permission.INTERNET", false);
+            bRet = packageManager.LwSetPermission("com.lw.permissionsmanager", "android.permission.READ_CONTACTS", false);
 
             Log.e(TAG,  "bRet : " + bRet);
         }
@@ -658,7 +659,8 @@ public class MainActivity extends AppCompatActivity {
             PackageManager packageManager = getPackageManager();
             int nRet = 100;
 
-            nRet = packageManager.LwGetPermission("com.browser.txtw", "android.permission.INTERNET");
+          //  nRet = packageManager.LwGetPermission("com.browser.txtw", "android.permission.INTERNET");
+            nRet = packageManager.LwGetPermission("com.lw.permissionsmanager", "android.permission.READ_CONTACTS");
 
             Log.e(TAG,  "nRet : " + nRet);
         }
