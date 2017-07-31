@@ -20,7 +20,7 @@ android {
 
     signingConfigs {
 	debug {
-		storeFile file('platform.keystore')
+		storeFile file('D:\\android6\\platform.keystore')
 		storePassword 'android'
 		keyAlias 'androiddebugkey'
 		keyPassword 'android'
