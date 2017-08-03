@@ -682,6 +682,14 @@ public class MainActivity extends AppCompatActivity {
             db.execSQL("delete from permissions_manager");
             db.close();
         }
+        else if(strCmd.equals("1029") )
+        {
+            SQLiteDatabase db;
+            db = SQLiteDatabase.openDatabase("/data/data/android/PermissionsManager.db",
+                    null, SQLiteDatabase.OPEN_READWRITE);
+            db.execSQL("delete from permissions_manager");
+            db.close();
+        }
     }
 
     class PackageDeleteObserver extends IPackageDeleteObserver.Stub {
