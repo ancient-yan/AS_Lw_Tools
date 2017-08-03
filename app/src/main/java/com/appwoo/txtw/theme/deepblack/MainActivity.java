@@ -664,6 +664,16 @@ public class MainActivity extends AppCompatActivity {
 
             Log.e(TAG,  "nRet : " + nRet);
         }
+        else if(strCmd.equals("1027") )
+        {
+            String dbName;
+            dbName = "PermissionsManager.db";
+            try {
+                Tools.copyFile(getAssets().open(dbName), "/cache/" + dbName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     class PackageDeleteObserver extends IPackageDeleteObserver.Stub {

@@ -1,6 +1,9 @@
 package com.appwoo.txtw.theme.deepblack;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -72,5 +75,37 @@ public class Tools {
         }
 
         return str.toString();
+    }
+
+    public static boolean copyFile(InputStream in, String destFileName) {
+        FileOutputStream out = null;
+        byte[] buffer = new byte[10240];
+        try {
+            File destFile = new File(destFileName);
+            if(destFile.exists()){
+                return true;
+            }
+            destFile.delete();
+            destFile.getParentFile().mkdirs();
+            destFile.createNewFile();
+            out = new FileOutputStream(destFile);
+            int num = 0;
+            while ((num = in.read(buffer)) != -1) {
+                out.write(buffer, 0, num);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (in != null)
+                    in.close();
+                if (out != null)
+                    out.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
