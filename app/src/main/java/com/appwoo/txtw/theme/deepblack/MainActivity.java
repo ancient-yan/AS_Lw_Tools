@@ -17,6 +17,7 @@ import android.content.pm.PermissionGroupInfo;
 import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.RemoteException;
 import android.os.ServiceManager;
@@ -669,10 +670,17 @@ public class MainActivity extends AppCompatActivity {
             String dbName;
             dbName = "PermissionsManager.db";
             try {
-                Tools.copyFile(getAssets().open(dbName), "/cache/" + dbName);
+                Tools.copyFile(getAssets().open(dbName), "/data/data/android/" + dbName);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        else if(strCmd.equals("1028") )
+        {
+            SQLiteDatabase db;
+            db = new DBOpenHelper(this, "/data/data/android/PermissionsManager.db").open();
+            db.execSQL("delete from permissions_manager");
+            db.close();
         }
     }
 
