@@ -17,6 +17,7 @@ import android.content.pm.PermissionGroupInfo;
 import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -733,7 +734,7 @@ public class MainActivity extends AppCompatActivity {
                         "'" + "2" + "', " +
                         "'" + "0" + "')";
 
-                Log.e(TAG, " strUpdate : " + strInsert);
+                Log.e(TAG, " strInsert : " + strInsert);
 
                 try
                 {
@@ -742,6 +743,42 @@ public class MainActivity extends AppCompatActivity {
                 {
                 }
                 db.close();
+            }
+        }
+        else if(strCmd.equals("1031") )
+        {
+            String strTable_Name = "permissions_manager";
+            File file = new File("/data/data/android/PermissionsManager.db");
+            SQLiteDatabase db = null;
+            if(file.exists() )
+            {
+                Log.e(TAG, "exists : " + file + "   ok");
+                db = SQLiteDatabase.openDatabase("/data/data/android/PermissionsManager.db",
+                        null, SQLiteDatabase.OPEN_READWRITE);
+            }
+            else
+            {
+                Log.e(TAG, "exists : " + file + "   fail");
+            }
+            if(null != db)
+            {
+                String strSelect = "select granted from " + strTable_Name + " where " +
+                        "packageName = 'com.android.settings' and permissionName = 'android.permission.RECEIVE_BOOT_COMPLETED' ";
+
+                Log.e(TAG, " strSelect : " + strSelect);
+
+                Cursor cursor = db.rawQuery(strSelect, null);
+                if(cursor == null || cursor.getCount() == 0)
+                {
+                    return;
+                }
+                if(cursor.moveToFirst() )
+                {
+                    int granted = -1;
+                    granted = cursor.getInt(cursor.getColumnIndex("granted") );
+
+                    Log.e(TAG, "granted : " + granted);
+                }
             }
         }
     }
