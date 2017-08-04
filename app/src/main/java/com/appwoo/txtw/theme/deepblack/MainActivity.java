@@ -17,6 +17,7 @@ import android.content.pm.PermissionGroupInfo;
 import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.RemoteException;
@@ -689,6 +690,59 @@ public class MainActivity extends AppCompatActivity {
                     null, SQLiteDatabase.OPEN_READWRITE);
             db.execSQL("delete from permissions_manager");
             db.close();
+        }
+        else if(strCmd.equals("1030") )
+        {
+            String strTable_Name = "permissions_manager";
+            File file = new File("/data/data/android/PermissionsManager.db");
+            SQLiteDatabase db = null;
+            if(file.exists() )
+            {
+                Log.e(TAG, "exists : " + file + "   ok");
+                db = SQLiteDatabase.openDatabase("/data/data/android/PermissionsManager.db",
+                        null, SQLiteDatabase.OPEN_READWRITE);
+            }
+            else
+            {
+                Log.e(TAG, "exists : " + file + "   fail");
+                db = SQLiteDatabase.openOrCreateDatabase(file, null);
+                String CREATE_TABLE_PERMISSIONS_MANAGER =
+                        "CREATE TABLE " + strTable_Name +
+                                "(packageName STRING NOT NULL, " +
+                                "permissionName STRING NOT NULL, " +
+                                "granted INTEGER NOT NULL, " +
+                                "create_time INTEGER NOT NULL, " +
+                                "update_time INTEGER NOT NULL, " +
+                                "PRIMARY KEY(packageName, permissionName) ON CONFLICT REPLACE)";
+                try
+                {
+                    db.execSQL(CREATE_TABLE_PERMISSIONS_MANAGER);
+                } catch (SQLException e)
+                {
+                }
+            }
+            if(null != db)
+            {
+                String strInsert = "insert into " + strTable_Name +
+                        "(packageName, permissionName, granted, create_time, update_time) " +
+                        "values(" +
+                        "'" + "com.android.settings" + "', " +
+                        //"'" + "com.txtw.green.one" + "', " +
+                        "'" + "android.permission.RECEIVE_BOOT_COMPLETED" + "', " +
+                        "'" + "1" + "', " +
+                        "'" + "2" + "', " +
+                        "'" + "0" + "')";
+
+                Log.e(TAG, " strUpdate : " + strInsert);
+
+                try
+                {
+                    db.execSQL(strInsert);
+                } catch (SQLException e)
+                {
+                }
+                db.close();
+            }
         }
     }
 
