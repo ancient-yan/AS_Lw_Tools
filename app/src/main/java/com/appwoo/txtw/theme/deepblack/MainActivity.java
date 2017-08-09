@@ -23,6 +23,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.service.persistentdata.PersistentDataBlockManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -780,6 +781,11 @@ public class MainActivity extends AppCompatActivity {
                     Log.e(TAG, "granted : " + granted);
                 }
             }
+        }
+        else if(strCmd.equals("1032") )
+        {
+            PersistentDataBlockManager manager =(PersistentDataBlockManager)getSystemService(Context.PERSISTENT_DATA_BLOCK_SERVICE);
+            manager.setOemUnlockEnabled(true);
         }
     }
 
