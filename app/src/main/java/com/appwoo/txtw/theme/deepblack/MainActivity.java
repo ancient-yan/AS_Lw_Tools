@@ -297,7 +297,8 @@ public class MainActivity extends AppCompatActivity {
                 //String cm = "/data/local/hello";
                 //String cm = "mount -o remount /system";
                 //String cm = "top";
-                String cm = "ls -l -Z /cache/recovery/";
+                //String cm = "ls -l -Z /cache/recovery/";
+                String cm = "su 0,0 ls -l -Z /cache/";
 
                 Log.e(TAG, "cm : " + cm);
 
