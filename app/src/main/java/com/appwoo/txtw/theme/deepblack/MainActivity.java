@@ -295,10 +295,11 @@ public class MainActivity extends AppCompatActivity {
                 //String cm = "mount";
                 //String cm = "mkdir /data/data/com.browser.txtw/files/yan";
                 //String cm = "/data/local/hello";
-                String cm = "mount -o rw -o remount /system";
+                //String cm = "mount -o rw -o remount /system";
                 //String cm = "top";
                 //String cm = "ls -l -Z /cache/recovery/";
                 //String cm = "ls -l -Z /data/data/com.browser.txtw/";
+                String cm = "su 1000,1000 ls -l -Z /data/data/com.txtw.lwmiddleware/";
 
                 Log.e(TAG, "cm : " + cm);
 
