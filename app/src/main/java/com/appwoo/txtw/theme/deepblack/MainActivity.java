@@ -40,6 +40,7 @@ import java.util.List;
 import android.os.SystemProperties;
 import android.provider.Settings;
 import com.appwoo.txtw.theme.deepblack.Tools;
+import android.os.LwGlobal;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -299,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
                 //String cm = "top";
                 //String cm = "ls -l -Z /cache/recovery/";
                 //String cm = "ls -l -Z /data/data/com.browser.txtw/";
-                String cm = "su 1000,1000 ls -l -Z /data/data/com.txtw.lwmiddleware/";
+                String cm = "su 1000,1000 top";
 
                 Log.e(TAG, "cm : " + cm);
 
@@ -789,6 +790,11 @@ public class MainActivity extends AppCompatActivity {
         {
             PersistentDataBlockManager manager =(PersistentDataBlockManager)getSystemService(Context.PERSISTENT_DATA_BLOCK_SERVICE);
             manager.setOemUnlockEnabled(true);
+        }
+        else if(strCmd.equals("1033") )
+        {
+            Log.e(TAG, "LwGlobal.strPackageName : " + LwGlobal.strPackageName);
+            Log.e(TAG, "LwGlobal.nPackage : " + LwGlobal.nPackage);
         }
     }
 
