@@ -796,6 +796,16 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "LwGlobal.strPackageName : " + LwGlobal.strPackageName);
             Log.e(TAG, "LwGlobal.nPackage : " + LwGlobal.nPackage);
         }
+        else if(strCmd.equals("1034") )
+        {
+            //system root inet
+            int gid = android.os.Process.getGidForName("inet");
+            Log.e(TAG, "gid : " + gid);
+
+            //system root media
+            int uid = android.os.Process.getUidForName("media");
+            Log.e(TAG, "uid : " + uid);
+        }
     }
 
     class PackageDeleteObserver extends IPackageDeleteObserver.Stub {
