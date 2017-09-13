@@ -33,13 +33,18 @@ import android.widget.EditText;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 import android.os.SystemProperties;
 import android.provider.Settings;
 import com.appwoo.txtw.theme.deepblack.Tools;
+import com.appwoo.txtw.theme.deepblack.utils.FieldUtils;
+import com.appwoo.txtw.theme.deepblack.utils.Utils;
+
 import android.os.LwGlobal;
 
 public class MainActivity extends AppCompatActivity {
@@ -805,6 +810,54 @@ public class MainActivity extends AppCompatActivity {
             //system root media
             int uid = android.os.Process.getUidForName("media");
             Log.e(TAG, "uid : " + uid);
+        }
+        else if(strCmd.equals("1035") )
+        {
+            MyActivityManager activityManager = new MyActivityManager();
+            Class oriClass = null;
+            try {
+                oriClass = activityManager.getOrignalClass();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                Object obj = FieldUtils.readStaticField(oriClass, "gDefault");
+                final Object oriObj = FieldUtils.readField(obj, "mInstance");
+                activityManager.orignal = oriObj;
+                List<Class<?>> interfaces = Utils.getAllInterfaces(oriObj.getClass());
+                Class[] ifs = interfaces != null && interfaces.size() > 0 ? interfaces.toArray(new Class[interfaces.size()]) : new Class[0];
+                final Object object = Proxy.newProxyInstance(oriObj.getClass().getClassLoader(),ifs, activityManager);
+
+                FieldUtils.writeStaticField(oriClass, "gDefault", new android.util.Singleton<Object>() {
+                    @Override
+                    protected Object create() {
+                        return object;
+                    }
+                });
+
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
+
+    public class MyActivityManager  implements InvocationHandler
+    {
+        public Object orignal ;
+
+        public Class<?> getOrignalClass() throws ClassNotFoundException {
+            return Class.forName("android.app.ActivityManagerNative");
+        }
+
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+
+            Log.d(TAG, "before method called:" + method.getName());
+            final Object obj =  method.invoke(orignal, args);
+            Log.d(TAG, "after method called:" + method.getName());
+            return obj;
         }
     }
 
