@@ -33,6 +33,7 @@ import android.widget.EditText;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -838,8 +839,35 @@ public class MainActivity extends AppCompatActivity {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
+        }
+        else if(strCmd.equals("1036") )
+        {
+            try {
+                Class viewClass = Class.forName("android.view.View");
+                Method method = viewClass.getDeclaredMethod("getListenerInfo");
+                method.setAccessible(true);
+                Object listenerInfoInstance = method.invoke(m_button_Run);
 
+                Class listenerInfoClass = Class.forName("android.view.View$ListenerInfo");
+                Field onClickListerField = listenerInfoClass.getDeclaredField("mOnClickListener");
+                onClickListerField.setAccessible(true);
+                View.OnClickListener onClickListerObj = (View.OnClickListener) onClickListerField.get(listenerInfoInstance);
 
+                Log.e(TAG, "onClickListerObj : " + onClickListerObj);
+
+                onClickListerField.set(listenerInfoInstance, null);
+
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
         }
     }
 
