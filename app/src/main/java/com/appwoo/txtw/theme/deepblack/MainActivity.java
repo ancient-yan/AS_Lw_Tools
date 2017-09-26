@@ -1,7 +1,9 @@
 package com.appwoo.txtw.theme.deepblack;
 
 import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.AppOpsManager;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
@@ -39,6 +41,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import android.os.SystemProperties;
 import android.provider.Settings;
@@ -868,6 +871,33 @@ public class MainActivity extends AppCompatActivity {
             } catch (NoSuchFieldException e) {
                 e.printStackTrace();
             }
+        }
+        else if(strCmd.equals("1037") )
+        {
+            Intent intent = new Intent(this, OneShotAlarm.class);
+            PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+            // We want the alarm to go off 10 seconds from now.
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.add(Calendar.SECOND, 30);
+
+            AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+            am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
+        }
+        else if(strCmd.equals("1038") )
+        {
+            Intent intent = new Intent(this, RepeatingAlarm.class);
+            PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+            // We want the alarm to go off 10 seconds from now.
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.add(Calendar.SECOND, 10);
+
+            AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+            am.setRepeating(AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(), 10 * 1000, sender);
         }
     }
 
