@@ -23,6 +23,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.net.wifi.ScanResult;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.service.persistentdata.PersistentDataBlockManager;
@@ -48,6 +49,7 @@ import android.provider.Settings;
 import com.appwoo.txtw.theme.deepblack.Tools;
 import com.appwoo.txtw.theme.deepblack.utils.FieldUtils;
 import com.appwoo.txtw.theme.deepblack.utils.Utils;
+import com.appwoo.txtw.theme.deepblack.utils.WifiAdmin;
 
 import android.os.LwGlobal;
 
@@ -911,6 +913,23 @@ public class MainActivity extends AppCompatActivity {
                 {
                     String parameterName = clas.getName();
                     Log.e(TAG, "parameterName : " + parameterName);
+                }
+            }
+        }
+        else if(strCmd.equals("1040") )
+        {
+            WifiAdmin localWifiAdmin  =  new WifiAdmin (this);
+            localWifiAdmin.openWifi();
+            localWifiAdmin.startScan();
+            List<ScanResult> wifiList = localWifiAdmin.getWifiList();
+            if((wifiList != null) && (wifiList.size() > 0) )
+            {
+                int nSize = wifiList.size();
+                Log.e(TAG, "nSize : " + nSize);
+
+                for(ScanResult result : wifiList)
+                {
+                    Log.e(TAG, "result.SSID : " + result.SSID);
                 }
             }
         }
