@@ -933,6 +933,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        else if(strCmd.equals("1041") )
+        {
+            WifiAdmin localWifiAdmin  =  new WifiAdmin (this);
+            localWifiAdmin.openWifi();
+
+            localWifiAdmin.Connect("LWTX");
+        }
     }
 
     public class MyActivityManager  implements InvocationHandler
