@@ -4,10 +4,12 @@ import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.AppOpsManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.IPackageDeleteObserver;
 import android.content.pm.IPackageInstallObserver;
 import android.content.pm.IPackageManager;
@@ -24,6 +26,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.service.persistentdata.PersistentDataBlockManager;
@@ -918,6 +921,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(strCmd.equals("1040") )
         {
+            registerBroadcastReceiver();
+
             WifiAdmin localWifiAdmin  =  new WifiAdmin (this);
             localWifiAdmin.openWifi();
             localWifiAdmin.startScan();
@@ -941,6 +946,21 @@ public class MainActivity extends AppCompatActivity {
             localWifiAdmin.Connect("LWTX");
         }
     }
+
+    private BroadcastReceiver mBroadcastReceiver;
+    private void registerBroadcastReceiver() {
+        mBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int state = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN);
+                Log.e(TAG, "wifi_state : " + state);
+            }
+        };
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("android.net.wifi.WIFI_STATE_CHANGED");//android.net.wifi.WIFI_STATE_CHANGED
+        this.registerReceiver(mBroadcastReceiver, intentFilter);
+    }
+
 
     public class MyActivityManager  implements InvocationHandler
     {
