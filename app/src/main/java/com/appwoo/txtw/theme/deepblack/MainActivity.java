@@ -953,11 +953,41 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 int state = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN);
-                Log.e(TAG, "wifi_state : " + state);
+                switch(state)
+                {
+                    case WifiManager.WIFI_STATE_DISABLING:
+                    {
+                        Log.e(TAG, "WIFI_STATE_DISABLING : " + state);
+                    }
+                    break;
+                    case WifiManager.WIFI_STATE_DISABLED:
+                    {
+                        Log.e(TAG, "WIFI_STATE_DISABLED : " + state);
+                    }
+                    break;
+                    case WifiManager.WIFI_STATE_ENABLING:
+                    {
+                        Log.e(TAG, "WIFI_STATE_ENABLING : " + state);
+                    }
+                    break;
+                    case WifiManager.WIFI_STATE_ENABLED:
+                    {
+                        Log.e(TAG, "WIFI_STATE_ENABLED : " + state);
+                    }
+                    break;
+                    case WifiManager.WIFI_STATE_UNKNOWN:
+                    {
+                        Log.e(TAG, "WIFI_STATE_UNKNOWN : " + state);
+                    }
+                    break;
+                    default: {
+                        Log.e(TAG, "wifi_state : " + state);
+                    }
+                }
             }
         };
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("android.net.wifi.WIFI_STATE_CHANGED");//android.net.wifi.WIFI_STATE_CHANGED
+        intentFilter.addAction("android.net.wifi.WIFI_STATE_CHANGED");
         this.registerReceiver(mBroadcastReceiver, intentFilter);
     }
 
