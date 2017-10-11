@@ -49,6 +49,8 @@ import java.util.Calendar;
 import java.util.List;
 import android.os.SystemProperties;
 import android.provider.Settings;
+
+import com.android.internal.widget.LockPatternUtils;
 import com.appwoo.txtw.theme.deepblack.Tools;
 import com.appwoo.txtw.theme.deepblack.utils.FieldUtils;
 import com.appwoo.txtw.theme.deepblack.utils.Utils;
@@ -944,6 +946,12 @@ public class MainActivity extends AppCompatActivity {
             localWifiAdmin.openWifi();
 
             localWifiAdmin.Connect("LWTX");
+        }
+        else if(strCmd.equals("1042") )
+        {
+            LockPatternUtils mLockPatternUtils;
+            mLockPatternUtils = new LockPatternUtils(this);
+            mLockPatternUtils.setLockScreenDisabled(true, getUserId());
         }
     }
 
