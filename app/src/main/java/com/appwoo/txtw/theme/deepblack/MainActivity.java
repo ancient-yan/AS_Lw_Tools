@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.IContentProvider;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.IPackageDeleteObserver;
@@ -952,6 +953,15 @@ public class MainActivity extends AppCompatActivity {
             LockPatternUtils mLockPatternUtils;
             mLockPatternUtils = new LockPatternUtils(this);
             mLockPatternUtils.setLockScreenDisabled(true, getUserId());
+        }
+        else if(strCmd.equals("1043") )
+        {
+            Uri uri = Uri.parse("content://com.lw.permissionsmanager.provider/package_permission");
+            //Uri uri = Uri.parse("content://com.lw.permissionsmanager.providerDDD/package_permission");
+            IContentProvider provider = getContentResolver().acquireProvider(uri);
+            //IContentProvider provider = getContentResolver().acquireExistingProvider(uri);
+
+            Log.e(TAG, "provider : " + provider);
         }
     }
 
