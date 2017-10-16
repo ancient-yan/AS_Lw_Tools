@@ -962,6 +962,8 @@ public class MainActivity extends AppCompatActivity {
             //IContentProvider provider = getContentResolver().acquireExistingProvider(uri);
 
             Log.e(TAG, "provider : " + provider);
+
+            if(null != provider) getContentResolver().releaseProvider(provider);
         }
     }
 
