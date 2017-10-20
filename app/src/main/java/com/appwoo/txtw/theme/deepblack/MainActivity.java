@@ -30,6 +30,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.os.UserHandle;
 import android.service.persistentdata.PersistentDataBlockManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -965,7 +966,29 @@ public class MainActivity extends AppCompatActivity {
 
             if(null != provider) getContentResolver().releaseProvider(provider);
         }
+        else if(strCmd.equals("1044") )
+        {
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(Intent.ACTION_SCREEN_ON);
+            filter.addAction(Intent.ACTION_SCREEN_OFF);
+
+            registerReceiverAsUser(mReceiver, UserHandle.OWNER, filter, null, null);
+        }
     }
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            Log.d(TAG, " action = " + action);
+
+            if (Intent.ACTION_SCREEN_ON.equals(action)) {
+                Log.d(TAG, " screen on ");
+            } else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
+                Log.d(TAG, " screen off ");
+            }
+        }
+    };
 
     private BroadcastReceiver mBroadcastReceiver;
     private void registerBroadcastReceiver() {
