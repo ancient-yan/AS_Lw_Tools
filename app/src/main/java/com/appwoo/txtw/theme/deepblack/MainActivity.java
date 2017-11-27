@@ -318,7 +318,8 @@ public class MainActivity extends AppCompatActivity {
                 //String cm = "top";
                 //String cm = "ls -l -Z /cache/recovery/";
                 //String cm = "ls -l -Z /data/data/com.browser.txtw/";
-                String cm = "su 1000,1000 top";
+                //String cm = "su 1000,1000 top";
+                String cm = "pm enable com.freeme.freemelite";
 
                 Log.e(TAG, "cm : " + cm);
 
