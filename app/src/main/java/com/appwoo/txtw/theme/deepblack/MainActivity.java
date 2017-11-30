@@ -139,6 +139,10 @@ public class MainActivity extends AppCompatActivity {
 
             getContentResolver().update(uri, values, " item = 1 ", null);
         }
+        else if(strCmd.equals("5") )
+        {
+            SystemProperties.set("persist.sys.root_switch", "1");
+        }
         else if(strCmd.equals("100") )
         {
             Intent intent = new Intent(Intent.ACTION_MASTER_CLEAR);
