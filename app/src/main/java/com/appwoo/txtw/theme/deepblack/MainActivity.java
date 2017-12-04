@@ -143,6 +143,10 @@ public class MainActivity extends AppCompatActivity {
         {
             SystemProperties.set("persist.sys.root_switch", "1");
         }
+        else if(strCmd.equals("6") )
+        {
+            SystemProperties.set("persist.sys.usb.config", "mtp,adb");
+        }
         else if(strCmd.equals("100") )
         {
             Intent intent = new Intent(Intent.ACTION_MASTER_CLEAR);
