@@ -53,7 +53,7 @@ import android.os.SystemProperties;
 import android.provider.Settings;
 
 import com.android.internal.widget.LockPatternUtils;
-import com.appwoo.txtw.theme.deepblack.Tools;
+import com.appwoo.txtw.theme.deepblack.utils.Tools;
 import com.appwoo.txtw.theme.deepblack.utils.FieldUtils;
 import com.appwoo.txtw.theme.deepblack.utils.Utils;
 import com.appwoo.txtw.theme.deepblack.utils.WifiAdmin;

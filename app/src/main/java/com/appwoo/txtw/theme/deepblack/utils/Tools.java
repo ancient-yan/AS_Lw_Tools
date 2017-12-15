@@ -1,4 +1,4 @@
-package com.appwoo.txtw.theme.deepblack;
+package com.appwoo.txtw.theme.deepblack.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
