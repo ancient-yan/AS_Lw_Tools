@@ -45,6 +45,17 @@
         <receiver android:name=".OneShotAlarm" android:process=":remote" />
         <receiver android:name=".RepeatingAlarm" android:process=":remote" />
 
+        <service
+            android:name=".myAccessibilityService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibilityservice" />
+        </service>
+
     </application>
 
 </manifest>
