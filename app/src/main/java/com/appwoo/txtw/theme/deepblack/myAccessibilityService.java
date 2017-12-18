@@ -1,6 +1,7 @@
 package com.appwoo.txtw.theme.deepblack;
 
 import android.accessibilityservice.AccessibilityService;
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -29,5 +30,14 @@ public class myAccessibilityService extends AccessibilityService {
             //performGlobalAction(GLOBAL_ACTION_NOTIFICATIONS);
             performGlobalAction(GLOBAL_ACTION_HOME);
         }
+    }
+
+    @Override
+    public void onServiceConnected() {
+        AccessibilityServiceInfo info = getServiceInfo();
+        info.flags |= AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS;
+        info.flags |= AccessibilityServiceInfo.FLAG_REQUEST_TOUCH_EXPLORATION_MODE;
+//        info.flags |= AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS;
+        setServiceInfo(info);
     }
 }
