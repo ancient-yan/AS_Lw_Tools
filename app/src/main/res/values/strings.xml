@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AS_Lw_Tools</string>
+    <string name="accessibility_service_description">无障碍测试</string>
 </resources>
