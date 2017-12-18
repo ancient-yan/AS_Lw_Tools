@@ -13,6 +13,8 @@ public class myAccessibilityService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+        Log.e(TAG, "getPackageName : " + event.getPackageName() );
+        Log.e(TAG, "getAction : " + event.getAction() );
         Log.e(TAG, AccessibilityEvent.eventTypeToString(event.getEventType() ) );
     }
 }
