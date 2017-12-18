@@ -24,7 +24,10 @@ public class myAccessibilityService extends AccessibilityService {
 
         if("com.mediatek.filemanager".equals(strPackageName) )
         {
-            performGlobalAction(GLOBAL_ACTION_BACK);
+            //performGlobalAction(GLOBAL_ACTION_BACK);
+            //performGlobalAction(GLOBAL_ACTION_RECENTS);
+            //performGlobalAction(GLOBAL_ACTION_NOTIFICATIONS);
+            performGlobalAction(GLOBAL_ACTION_HOME);
         }
     }
 }
