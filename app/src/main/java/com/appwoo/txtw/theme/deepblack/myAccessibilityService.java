@@ -28,7 +28,7 @@ public class myAccessibilityService extends AccessibilityService {
             //performGlobalAction(GLOBAL_ACTION_BACK);
             //performGlobalAction(GLOBAL_ACTION_RECENTS);
             //performGlobalAction(GLOBAL_ACTION_NOTIFICATIONS);
-            performGlobalAction(GLOBAL_ACTION_HOME);
+            //performGlobalAction(GLOBAL_ACTION_HOME);
         }
     }
 
@@ -37,7 +37,35 @@ public class myAccessibilityService extends AccessibilityService {
         AccessibilityServiceInfo info = getServiceInfo();
         info.flags |= AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS;
         info.flags |= AccessibilityServiceInfo.FLAG_REQUEST_TOUCH_EXPLORATION_MODE;
-//        info.flags |= AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS;
+        info.flags |= AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS;
         setServiceInfo(info);
+    }
+
+    @Override
+    protected boolean onGesture(int gestureId) {
+        Log.e(TAG, "onGesture");
+
+        switch (gestureId) {
+            case AccessibilityService.GESTURE_SWIPE_DOWN: {
+                Log.e(TAG, "onGesture -> GESTURE_SWIPE_DOWN");
+            } break;
+            case AccessibilityService.GESTURE_SWIPE_UP: {
+                Log.e(TAG, "onGesture -> GESTURE_SWIPE_UP");
+            } break;
+            case AccessibilityService.GESTURE_SWIPE_LEFT: {
+                Log.e(TAG, "onGesture -> GESTURE_SWIPE_LEFT");
+            } break;
+            case AccessibilityService.GESTURE_SWIPE_RIGHT: {
+                Log.e(TAG, "onGesture -> GESTURE_SWIPE_RIGHT");
+            } break;
+            case AccessibilityService.GESTURE_SWIPE_LEFT_AND_RIGHT: {
+                Log.e(TAG, "onGesture -> GESTURE_SWIPE_LEFT_AND_RIGHT");
+            } break;
+            case AccessibilityService.GESTURE_SWIPE_RIGHT_AND_LEFT: {
+                Log.e(TAG, "onGesture -> GESTURE_SWIPE_RIGHT_AND_LEFT");
+            } break;
+        }
+
+        return super.onGesture(gestureId);
     }
 }
