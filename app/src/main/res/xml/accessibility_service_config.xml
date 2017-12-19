@@ -4,6 +4,7 @@
     android:accessibilityEventTypes="typeAllMask"
     android:canRetrieveWindowContent="true"
     android:canRequestTouchExplorationMode="true"
+    android:canRequestFilterKeyEvents="true"
     android:packageNames="com.mediatek.filemanager"
 />
     <!--

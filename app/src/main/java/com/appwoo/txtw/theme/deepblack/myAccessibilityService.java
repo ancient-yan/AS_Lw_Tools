@@ -3,6 +3,7 @@ package com.appwoo.txtw.theme.deepblack;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -15,6 +16,9 @@ public class myAccessibilityService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+
+        if(true) return;
+
         String strPackageName = "" + event.getPackageName();
         Log.e(TAG, "getPackageName : " +  strPackageName);
         Log.e(TAG, AccessibilityEvent.eventTypeToString(event.getEventType() ) );
@@ -36,8 +40,9 @@ public class myAccessibilityService extends AccessibilityService {
     public void onServiceConnected() {
         AccessibilityServiceInfo info = getServiceInfo();
         info.flags |= AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS;
-        info.flags |= AccessibilityServiceInfo.FLAG_REQUEST_TOUCH_EXPLORATION_MODE;
+        //info.flags |= AccessibilityServiceInfo.FLAG_REQUEST_TOUCH_EXPLORATION_MODE;
         info.flags |= AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS;
+        info.flags |= AccessibilityServiceInfo.FLAG_REQUEST_FILTER_KEY_EVENTS;
         setServiceInfo(info);
     }
 
@@ -67,5 +72,13 @@ public class myAccessibilityService extends AccessibilityService {
         }
 
         return super.onGesture(gestureId);
+    }
+
+    @Override
+    public boolean onKeyEvent(KeyEvent event) {
+        Log.e(TAG, "onKeyEvent : " + event);
+
+        boolean result = false;
+        return result;
     }
 }
