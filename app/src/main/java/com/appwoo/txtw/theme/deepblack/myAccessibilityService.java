@@ -78,7 +78,7 @@ public class myAccessibilityService extends AccessibilityService {
     public boolean onKeyEvent(KeyEvent event) {
         Log.e(TAG, "onKeyEvent : " + event);
 
-        boolean result = false;
+        boolean result = true;
         return result;
     }
 }

@@ -46,6 +46,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -982,6 +984,17 @@ public class MainActivity extends AppCompatActivity {
             filter.addAction(Intent.ACTION_SCREEN_OFF);
 
             registerReceiverAsUser(mReceiver, UserHandle.OWNER, filter, null, null);
+        }
+        else if(strCmd.equals("1045") )
+        {
+            try {
+                System.out.printf("my_log : App : %s : %d \n", "www.baidu.com", 80);
+
+                Socket socket = new Socket("www.baidu.com", 80);
+                InetAddress.getAllByName("www.baidu.com");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
