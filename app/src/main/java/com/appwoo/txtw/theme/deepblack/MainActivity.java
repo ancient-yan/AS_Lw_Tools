@@ -30,6 +30,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.os.StrictMode;
 import android.os.UserHandle;
 import android.service.persistentdata.PersistentDataBlockManager;
 import android.support.v7.app.AppCompatActivity;
@@ -72,6 +73,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads().detectDiskWrites().detectNetwork()
+                .penaltyLog().build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
+                .penaltyLog().penaltyDeath().build());
 
         m_editText_Input = (EditText)findViewById(R.id.editText_Input);
         m_button_Run = (Button)findViewById(R.id.button_Run);
