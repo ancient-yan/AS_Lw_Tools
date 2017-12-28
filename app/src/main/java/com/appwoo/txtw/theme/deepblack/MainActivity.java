@@ -63,6 +63,10 @@ import com.appwoo.txtw.theme.deepblack.utils.WifiAdmin;
 
 import android.os.LwGlobal;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText m_editText_Input;
@@ -1001,6 +1005,24 @@ public class MainActivity extends AppCompatActivity {
                 Socket socket = new Socket("www.baidu.com", 80);
                 InetAddress.getAllByName("www.baidu.com");
             } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(strCmd.equals("1046") )
+        {
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder()
+                        .url("http://www.baidu.com")
+                        .build();
+                Response response = null;
+                response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    Log.e(TAG, "response.code()==" + response.code());
+                    Log.e(TAG, "response.message()==" + response.message());
+                    Log.e(TAG, "res==" + response.body().string());
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
