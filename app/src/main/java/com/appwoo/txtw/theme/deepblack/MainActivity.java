@@ -1037,19 +1037,33 @@ public class MainActivity extends AppCompatActivity {
 
             bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
         }
+        else if(strCmd.equals("1048") )
+        {
+            try {
+                //mService.powerOff();
+                //mService.reboot();
+                //mService.recoverySystem("//sdcard/update.zip");
+                ComponentName name = mService.getTopActivity();
+                Log.e(TAG, "name : " + name.toString() );
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    IMiddlewareService mService;
+    IMiddlewareService mService = null;
 
     private ServiceConnection mConnection = new ServiceConnection()
     {
         public void onServiceConnected(ComponentName className, IBinder service)
         {
+            mService = IMiddlewareService.Stub.asInterface(service);
             Log.e(TAG, "onServiceConnected");
         }
 
         public void onServiceDisconnected(ComponentName className)
         {
+            mService = null;
             Log.e(TAG, "onServiceDisconnected");
         }
     };
