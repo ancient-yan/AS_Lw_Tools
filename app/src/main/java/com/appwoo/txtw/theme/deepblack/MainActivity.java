@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.IContentProvider;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.pm.IPackageDeleteObserver;
 import android.content.pm.IPackageInstallObserver;
 import android.content.pm.IPackageManager;
@@ -28,6 +29,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.StrictMode;
@@ -66,6 +68,8 @@ import android.os.LwGlobal;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import android.app.IMiddlewareService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -1026,7 +1030,29 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        else if(strCmd.equals("1047") )
+        {
+            Intent intent = new Intent("com.txtw.lwmiddleware.action.MiddlewareService");
+            intent.setPackage("com.txtw.lwmiddleware");
+
+            bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        }
     }
+
+    IMiddlewareService mService;
+
+    private ServiceConnection mConnection = new ServiceConnection()
+    {
+        public void onServiceConnected(ComponentName className, IBinder service)
+        {
+            Log.e(TAG, "onServiceConnected");
+        }
+
+        public void onServiceDisconnected(ComponentName className)
+        {
+            Log.e(TAG, "onServiceDisconnected");
+        }
+    };
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
