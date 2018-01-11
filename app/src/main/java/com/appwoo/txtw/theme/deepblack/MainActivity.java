@@ -1043,8 +1043,9 @@ public class MainActivity extends AppCompatActivity {
                 //mService.powerOff();
                 //mService.reboot();
                 //mService.recoverySystem("//sdcard/update.zip");
-                ComponentName name = mService.getTopActivity();
-                Log.e(TAG, "name : " + name.toString() );
+                //ComponentName name = mService.getTopActivity();
+                //Log.e(TAG, "name : " + name.toString() );
+                mService.resetFactory();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
