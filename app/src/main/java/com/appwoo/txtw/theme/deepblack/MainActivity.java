@@ -6,7 +6,6 @@ import android.app.AlarmManager;
 import android.app.AppOpsManager;
 import android.app.DialogFragment;
 import android.app.PendingIntent;
-import android.app.VpnEntity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentValues;
@@ -78,7 +77,6 @@ import okhttp3.Response;
 
 import android.app.IMiddlewareService;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -1184,10 +1182,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static class MyDialogFragment extends DialogFragment {
-        private String[] mListStr = {"android.permission.INTERNET",
-                "android.permission.RECEIVE_BOOT_COMPLETED",
-                "android.permission.READ_EXTERNAL_STORAGE",
-                "android.permission.READ_CONTACTS"};
+        private String[] mListStr = {
+                "禁用WebView",
+                "启用WebView"};
 
      public static DialogFragment newInstance(Bundle bundle)
      {
@@ -1209,29 +1206,43 @@ public class MainActivity extends AppCompatActivity {
             Bundle bundle = getArguments();
             final int layoutId = bundle.getInt("layout", -1);
             final Activity activity = getActivity();
-            View root = null;
-
-           {
-                root = inflater.inflate(layoutId, container, false);
-                ListView listView = (ListView) root.findViewById(R.id.package_list);
-                listView.setAdapter(new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1,
+            View  root = inflater.inflate(layoutId, container, false);
+            ListView listView = (ListView) root.findViewById(R.id.package_list);
+            listView.setAdapter(new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1,
                         mListStr) );
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String packageName = ((TextView) view).getText().toString();
-                        if (packageName.length() > 0) {
-                            dismiss();
-                            {
-                                Toast.makeText(activity, "error", Toast.LENGTH_SHORT).show();
-                            }
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+            {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                {
+                    dismiss();
+
+                    switch(position)
+                    {
+                        case 0:
+                        {
+                            SystemProperties.set("persist.sys.webviewdisablelw", "1");
+
+                            Toast.makeText(activity, "禁用WebView", Toast.LENGTH_SHORT).show();
                         }
+                        break;
+
+                        case 1:
+                        {
+                            SystemProperties.set("persist.sys.webviewdisablelw", "0");
+
+                            Toast.makeText(activity, "启用WebView", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+
+                        default:
+                            Toast.makeText(activity, "error", Toast.LENGTH_SHORT).show();
                     }
-                });
-            }
+                }
+            });
 
             return root;
         }
     }
-
 }
