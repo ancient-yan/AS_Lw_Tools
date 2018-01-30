@@ -1,9 +1,12 @@
 package com.appwoo.txtw.theme.deepblack;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.AppOpsManager;
+import android.app.DialogFragment;
 import android.app.PendingIntent;
+import android.app.VpnEntity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentValues;
@@ -38,7 +41,11 @@ import android.service.persistentdata.PersistentDataBlockManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import java.io.File;
@@ -70,6 +77,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import android.app.IMiddlewareService;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -98,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
                 OnClick_run();
             }
         });
+
+        m_editText_Input.setEnabled(false);
     }
 
     private void OnClick_run()
@@ -110,6 +122,15 @@ public class MainActivity extends AppCompatActivity {
         if(null == strCmd) return;
 
         Log.e(TAG, " strCmd : " + strCmd);
+
+        if("".equals(strCmd) )
+        {
+            Bundle bundle = new Bundle(1);
+            bundle.putInt("layout", R.layout.package_list);
+            MyDialogFragment.newInstance(bundle).show(getFragmentManager(), "fragment");
+
+            return;
+        }
 
         String[] Vars = strCmd.split(" ");
 
@@ -1161,4 +1182,56 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "INSTALL_SUCCEEDED : " + PackageManager.INSTALL_SUCCEEDED);
         }
     }
+
+    public static class MyDialogFragment extends DialogFragment {
+        private String[] mListStr = {"android.permission.INTERNET",
+                "android.permission.RECEIVE_BOOT_COMPLETED",
+                "android.permission.READ_EXTERNAL_STORAGE",
+                "android.permission.READ_CONTACTS"};
+
+     public static DialogFragment newInstance(Bundle bundle)
+     {
+         DialogFragment fragment = new MyDialogFragment();
+         fragment.setArguments(bundle);
+
+         return fragment;
+     }
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            //setStyle(STYLE_NO_TITLE, 0);
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            Bundle bundle = getArguments();
+            final int layoutId = bundle.getInt("layout", -1);
+            final Activity activity = getActivity();
+            View root = null;
+
+           {
+                root = inflater.inflate(layoutId, container, false);
+                ListView listView = (ListView) root.findViewById(R.id.package_list);
+                listView.setAdapter(new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1,
+                        mListStr) );
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String packageName = ((TextView) view).getText().toString();
+                        if (packageName.length() > 0) {
+                            dismiss();
+                            {
+                                Toast.makeText(activity, "error", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+            }
+
+            return root;
+        }
+    }
+
 }
