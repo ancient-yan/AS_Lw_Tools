@@ -1,5 +1,6 @@
 package com.appwoo.txtw.theme.deepblack;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
@@ -31,12 +32,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.StrictMode;
 import android.os.UserHandle;
-import android.service.persistentdata.PersistentDataBlockManager;
+//import android.service.persistentdata.PersistentDataBlockManager;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,13 +66,13 @@ import java.util.List;
 import android.os.SystemProperties;
 import android.provider.Settings;
 
-import com.android.internal.widget.LockPatternUtils;
+//import com.android.internal.widget.LockPatternUtils;
 import com.appwoo.txtw.theme.deepblack.utils.Tools;
 import com.appwoo.txtw.theme.deepblack.utils.FieldUtils;
 import com.appwoo.txtw.theme.deepblack.utils.Utils;
 import com.appwoo.txtw.theme.deepblack.utils.WifiAdmin;
 
-import android.os.LwGlobal;
+//import android.os.LwGlobal;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -110,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         m_editText_Input.setEnabled(false);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void OnClick_run()
     {
         if(null == m_editText_Input) return;
@@ -186,11 +190,11 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(strCmd.equals("100") )
         {
-            Intent intent = new Intent(Intent.ACTION_MASTER_CLEAR);
+/*            Intent intent = new Intent(Intent.ACTION_MASTER_CLEAR);
             intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
             intent.putExtra(Intent.EXTRA_REASON, "Lw_Tools_diff");
             sendBroadcast(intent);
-        }
+ */       }
         else if(strCmd.equals("1001") )
         {
             PackageManager packageManager = getPackageManager();
@@ -232,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
             for(ActivityManager.RecentTaskInfo rt:recentTasks )
             {
                 Log.e(TAG, " : " + rt.persistentId);
-                if (am != null) am.removeTask(rt.persistentId);
+             //   if (am != null) am.removeTask(rt.persistentId);
             }
         }
         else if(strCmd.equals("1004") )
@@ -482,7 +486,7 @@ public class MainActivity extends AppCompatActivity {
 //                Log.e(TAG, "protectionLevel : " + permissionInfo.protectionLevel);
 
                 if (permissionInfo.protectionLevel == PermissionInfo.PROTECTION_DANGEROUS)
-                {
+                {/*
                     Log.e(TAG, "=====================================================================================");
 
                     Log.e(TAG, "requestedPerm : " + requestedPerm);
@@ -494,7 +498,7 @@ public class MainActivity extends AppCompatActivity {
                     final boolean appOpAllowed = getSystemService(AppOpsManager.class).checkOp(appOp,
                             packageInfo.applicationInfo.uid, packageInfo.packageName) == AppOpsManager.MODE_ALLOWED ;
                     Log.e(TAG, "appOpAllowed : " + appOpAllowed);
-                }
+               */ }
 
                 PackageItemInfo groupInfo = permissionInfo;
                 if (permissionInfo.group != null) {
@@ -509,7 +513,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else if(strCmd.equals("1014") )
-        {
+        {/*
             PackageManager packageManager = getPackageManager();
             PackageInfo packageInfo = null;
 
@@ -527,7 +531,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "appOp : " + appOp);
             //getSystemService(AppOpsManager.class).setUidMode(appOp, uid, AppOpsManager.MODE_ALLOWED);
             getSystemService(AppOpsManager.class).setUidMode(appOp, uid, AppOpsManager.MODE_IGNORED);
-        }
+       */ }
         else if(strCmd.equals("1015") )
         {
             PackageManager packageManager = getPackageManager();
@@ -620,7 +624,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else if(strCmd.equals("1020") )
-        {
+        {/*
             File file = new File("/sdcard/Download/baidu.apk");
             if(file.exists() )
             {
@@ -649,7 +653,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "signature : [" + signature.toCharsString() + "]" );
                 Tools.parseSignature(signature.toByteArray() );
             }
-        }
+        */}
         else if(strCmd.equals("1021") )
         {
             IPackageManager packageManager =
@@ -732,7 +736,7 @@ public class MainActivity extends AppCompatActivity {
             int nRet = 100;
 
           //  nRet = packageManager.LwGetPermission("com.browser.txtw", "android.permission.INTERNET");
-            nRet = packageManager.LwGetPermission("com.lw.permissionsmanager", "android.permission.READ_CONTACTS");
+            //nRet = packageManager.LwGetPermission("com.lw.permissionsmanager", "android.permission.READ_CONTACTS");
 
             Log.e(TAG,  "nRet : " + nRet);
         }
@@ -852,13 +856,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(strCmd.equals("1032") )
         {
-            PersistentDataBlockManager manager =(PersistentDataBlockManager)getSystemService(Context.PERSISTENT_DATA_BLOCK_SERVICE);
-            manager.setOemUnlockEnabled(true);
+            //PersistentDataBlockManager manager =(PersistentDataBlockManager)getSystemService(Context.PERSISTENT_DATA_BLOCK_SERVICE);
+            //manager.setOemUnlockEnabled(true);
         }
         else if(strCmd.equals("1033") )
         {
-            Log.e(TAG, "LwGlobal.strPackageName : " + LwGlobal.strPackageName);
-            Log.e(TAG, "LwGlobal.nPackage : " + LwGlobal.nPackage);
+           // Log.e(TAG, "LwGlobal.strPackageName : " + LwGlobal.strPackageName);
+            //Log.e(TAG, "LwGlobal.nPackage : " + LwGlobal.nPackage);
         }
         else if(strCmd.equals("1034") )
         {
@@ -996,11 +1000,11 @@ public class MainActivity extends AppCompatActivity {
             localWifiAdmin.Connect("LWTX");
         }
         else if(strCmd.equals("1042") )
-        {
+        {/*
             LockPatternUtils mLockPatternUtils;
             mLockPatternUtils = new LockPatternUtils(this);
             mLockPatternUtils.setLockScreenDisabled(true, getUserId());
-        }
+        */}
         else if(strCmd.equals("1043") )
         {
             Uri uri = Uri.parse("content://com.lw.permissionsmanager.provider/package_permission");
@@ -1184,7 +1188,9 @@ public class MainActivity extends AppCompatActivity {
     public static class MyDialogFragment extends DialogFragment {
         private String[] mListStr = {
                 "禁用WebView",
-                "启用WebView"};
+                "启用WebView",
+                "启用adb",
+                "禁用adb"};
 
      public static DialogFragment newInstance(Bundle bundle)
      {
@@ -1213,6 +1219,7 @@ public class MainActivity extends AppCompatActivity {
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
             {
+                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id)
                 {
@@ -1233,6 +1240,20 @@ public class MainActivity extends AppCompatActivity {
                             SystemProperties.set("persist.sys.webviewdisablelw", "0");
 
                             Toast.makeText(activity, "启用WebView", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+
+                        case 2:
+                        {
+                            SystemProperties.set("persist.sys.usbdebugdisablelw", "1");
+                            Settings.Global.putInt(activity.getContentResolver(), Settings.Global.ADB_ENABLED, 1);
+                        }
+                        break;
+
+                        case 3:
+                        {
+                            Settings.Global.putInt(activity.getContentResolver(), Settings.Global.ADB_ENABLED, 0);
+                            SystemProperties.set("persist.sys.usbdebugdisablelw", "0");
                         }
                         break;
 
