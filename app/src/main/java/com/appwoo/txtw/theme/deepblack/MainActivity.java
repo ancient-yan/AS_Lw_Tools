@@ -1190,7 +1190,8 @@ public class MainActivity extends AppCompatActivity {
                 "禁用WebView",
                 "启用WebView",
                 "启用adb",
-                "禁用adb"};
+                "禁用adb",
+                "Input Code"};
 
      public static DialogFragment newInstance(Bundle bundle)
      {
@@ -1258,7 +1259,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                         default:
-                            Toast.makeText(activity, "error", Toast.LENGTH_SHORT).show();
+                            ( (MainActivity)activity).m_editText_Input.setEnabled(true);
                     }
                 }
             });
