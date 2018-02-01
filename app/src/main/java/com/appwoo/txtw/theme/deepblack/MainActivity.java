@@ -31,6 +31,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.IBinder;
@@ -1072,6 +1073,20 @@ public class MainActivity extends AppCompatActivity {
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
+        }
+        else if(strCmd.equals("1049") )
+        {
+            WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+            String mac = wifiInfo.getMacAddress();
+
+            Log.e(TAG, "mac : " + mac);
+        }
+        else if(strCmd.equals("1050") )
+        {
+            String strSN = SystemProperties.get("persist.sys.sn");
+
+            Log.e(TAG, "strSN : " + strSN);
         }
     }
 
