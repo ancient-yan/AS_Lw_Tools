@@ -1206,6 +1206,8 @@ public class MainActivity extends AppCompatActivity {
                 "启用WebView",
                 "启用adb",
                 "禁用adb",
+                "禁用系统锁屏",
+                "启用系统锁屏",
                 "Input Code"};
 
      public static DialogFragment newInstance(Bundle bundle)
@@ -1270,6 +1272,20 @@ public class MainActivity extends AppCompatActivity {
                         {
                             Settings.Global.putInt(activity.getContentResolver(), Settings.Global.ADB_ENABLED, 0);
                             SystemProperties.set("persist.sys.usbdebugdisablelw", "0");
+                        }
+                        break;
+
+                        case 4:
+                        {
+                            SystemProperties.set("persist.sys.lockscreendisablelw", "1");
+                            Toast.makeText(activity, "禁用系统锁屏", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+
+                        case 5:
+                        {
+                            SystemProperties.set("persist.sys.lockscreendisablelw", "0");
+                            Toast.makeText(activity, "启用系统锁屏", Toast.LENGTH_SHORT).show();
                         }
                         break;
 
