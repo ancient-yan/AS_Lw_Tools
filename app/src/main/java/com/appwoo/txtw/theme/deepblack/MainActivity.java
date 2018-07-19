@@ -1112,6 +1112,33 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        else if(strCmd.equals("1052") )
+        {
+            PackageManager pm = getPackageManager();
+
+            Class pmCla = (Class) pm.getClass();
+
+            Field[] fs = pmCla.getDeclaredFields ();
+
+            for (Field f : fs)
+            {
+                String strType = f.getType().toString();
+                Log.e(TAG, "strType :" + strType);
+
+                String strName = f.getName();
+                Log.e(TAG, "strName :" + strName);
+
+                f.setAccessible(true);
+            }
+
+            Method[] methods = pmCla.getMethods();
+
+            for (Method method : methods)
+            {
+                String strName = method.getName();
+                Log.e(TAG, "strName :" + strName);
+            }
+        }
     }
 
     IMiddlewareService mService = null;
