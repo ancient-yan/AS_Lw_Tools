@@ -15,6 +15,7 @@ import android.content.IContentProvider;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.IPackageDeleteObserver;
 import android.content.pm.IPackageInstallObserver;
 import android.content.pm.IPackageManager;
@@ -63,6 +64,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import android.os.SystemProperties;
 import android.provider.Settings;
@@ -1087,6 +1089,28 @@ public class MainActivity extends AppCompatActivity {
             String strSN = SystemProperties.get("persist.sys.sn");
 
             Log.e(TAG, "strSN : " + strSN);
+        }
+        else if(strCmd.equals("1051") )
+        {
+            PackageManager pm = getPackageManager();
+
+            List<ApplicationInfo> listAppcations = pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+
+            for (ApplicationInfo app : listAppcations)
+            {
+                if ( (app.flags & ApplicationInfo.FLAG_SYSTEM) != 0)
+                {
+                    //Log.e(TAG, "FLAG_SYSTEM");
+                }
+                else if ( (app.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0)
+                {
+                    Log.e(TAG, "FLAG_UPDATED_SYSTEM_APP");
+                }
+                else
+                {
+                    Log.e(TAG, "packageName : " + app.packageName);
+                }
+            }
         }
     }
 
