@@ -1084,7 +1084,9 @@ public class MainActivity extends AppCompatActivity {
         {
             PackageManager pm = getPackageManager();
 
-            List<ApplicationInfo> listAppcations = pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+            //List<ApplicationInfo> listAppcations = pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+            List<ApplicationInfo> listAppcations = ReflectionEX.getInstalledApplications(this, PackageManager.GET_UNINSTALLED_PACKAGES);
+            if(null == listAppcations) return;
 
             for (ApplicationInfo app : listAppcations)
             {
@@ -1100,25 +1102,6 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Log.e(TAG, "packageName : " + app.packageName);
                 }
-            }
-        }
-        else if(strCmd.equals("1052") )
-        {
-            PackageManager pm = getPackageManager();
-            Class pmCla = (Class) pm.getClass();
-
-            //ReflectionEX.ShowAllFields(pmCla);
-            ReflectionEX.ShowAllMethods(pmCla);
-        }
-        else if(strCmd.equals("1053") )
-        {
-            PackageManager pm = getPackageManager();
-
-            Class pmCla = (Class) pm.getClass();
-            try {
-                Class mPMCla = pmCla.getDeclaredField("mPM").getClass();
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
             }
         }
     }

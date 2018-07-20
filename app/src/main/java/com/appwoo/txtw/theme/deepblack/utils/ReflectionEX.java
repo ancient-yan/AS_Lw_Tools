@@ -1,8 +1,15 @@
 package com.appwoo.txtw.theme.deepblack.utils;
 
+import android.app.ActivityThread;
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.IPackageManager;
+import android.content.pm.ParceledListSlice;
+import android.os.RemoteException;
 import android.util.Log;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 
 public class ReflectionEX
 {
@@ -41,5 +48,27 @@ public class ReflectionEX
     public static void SetEnable(Field reField)
     {
         reField.setAccessible(true);
+    }
+
+    public static void SetEnable(Method reMethod)
+    {
+        reMethod.setAccessible(true);
+    }
+
+    public static List<ApplicationInfo> getInstalledApplications(Context context, int flags)
+    {
+        if(null == context) return null;
+
+        IPackageManager mPM = ActivityThread.getPackageManager();
+        final int userId = context.getUserId();
+
+        try {
+            ParceledListSlice<ApplicationInfo> slice = mPM.getInstalledApplications(flags, userId);
+            return slice.getList();
+        } catch (RemoteException e) {
+            Log.e(TAG, "RemoteException : " + e);
+        }
+
+        return null;
     }
 }
