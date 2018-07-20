@@ -964,18 +964,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(strCmd.equals("1039") )
         {
-            Method[] methods = AlarmManager.class.getMethods();
-            for(Method method : methods)
-            {
-                String methodName = method.getName();
-                Log.e(TAG, "methodName : " + methodName);
-                Class<?>[] parameterTypes = method.getParameterTypes();
-                for (Class<?> clas : parameterTypes)
-                {
-                    String parameterName = clas.getName();
-                    Log.e(TAG, "parameterName : " + parameterName);
-                }
-            }
+            ReflectionEX.ShowAllMethods(AlarmManager.class);
         }
         else if(strCmd.equals("1040") )
         {

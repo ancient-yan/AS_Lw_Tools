@@ -28,6 +28,13 @@ public class ReflectionEX
         {
             String strName = method.getName();
             Log.e(TAG, "Method :" + strName);
+
+            Class<?>[] parameterTypes = method.getParameterTypes();
+            for (Class<?> clas : parameterTypes)
+            {
+                String parameterName = clas.getName();
+                Log.e(TAG, "parameterName : " + parameterName);
+            }
         }
     }
 
