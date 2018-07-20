@@ -70,6 +70,7 @@ import android.os.SystemProperties;
 import android.provider.Settings;
 
 //import com.android.internal.widget.LockPatternUtils;
+import com.appwoo.txtw.theme.deepblack.utils.ReflectionEX;
 import com.appwoo.txtw.theme.deepblack.utils.Tools;
 import com.appwoo.txtw.theme.deepblack.utils.FieldUtils;
 import com.appwoo.txtw.theme.deepblack.utils.Utils;
@@ -1115,28 +1116,20 @@ public class MainActivity extends AppCompatActivity {
         else if(strCmd.equals("1052") )
         {
             PackageManager pm = getPackageManager();
-
             Class pmCla = (Class) pm.getClass();
 
-            Field[] fs = pmCla.getDeclaredFields ();
+            //ReflectionEX.ShowAllFields(pmCla);
+            ReflectionEX.ShowAllMethods(pmCla);
+        }
+        else if(strCmd.equals("1053") )
+        {
+            PackageManager pm = getPackageManager();
 
-            for (Field f : fs)
-            {
-                String strType = f.getType().toString();
-                Log.e(TAG, "strType :" + strType);
-
-                String strName = f.getName();
-                Log.e(TAG, "strName :" + strName);
-
-                f.setAccessible(true);
-            }
-
-            Method[] methods = pmCla.getMethods();
-
-            for (Method method : methods)
-            {
-                String strName = method.getName();
-                Log.e(TAG, "strName :" + strName);
+            Class pmCla = (Class) pm.getClass();
+            try {
+                Class mPMCla = pmCla.getDeclaredField("mPM").getClass();
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
             }
         }
     }
