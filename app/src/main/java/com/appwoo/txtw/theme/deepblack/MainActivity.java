@@ -1104,6 +1104,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        else if(strCmd.equals("1052") )
+        {
+            ActivityManager activityManager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+            List<ActivityManager.RunningAppProcessInfo> AppList = activityManager.getRunningAppProcesses();
+
+            for(ActivityManager.RunningAppProcessInfo info: AppList)
+            {
+                Log.e(TAG, "processName : " + info.processName);
+            }
+        }
     }
 
     IMiddlewareService mService = null;
