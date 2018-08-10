@@ -61,10 +61,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 import android.os.SystemProperties;
 import android.provider.Settings;
@@ -1112,6 +1115,34 @@ public class MainActivity extends AppCompatActivity {
             for(ActivityManager.RunningAppProcessInfo info: AppList)
             {
                 Log.e(TAG, "processName : " + info.processName);
+            }
+        }
+        else if(strCmd.equals("1053") )
+        {
+            try
+            {
+                Enumeration<NetworkInterface> niList = NetworkInterface.getNetworkInterfaces();
+                if(null == niList) return;
+
+                for (NetworkInterface intf : Collections.list(niList) )
+                {
+                    if(null == intf) continue;
+
+                    String strNiName = intf.getName();
+                    Log.e(TAG, "UP : " + intf.isUp() + "\tstrNiName : " + strNiName);
+
+                    if(!intf.isUp() || intf.getInterfaceAddresses().size() == 0)
+                    {
+                        continue;
+                    }
+
+                    if ("tun0".equals(intf.getName() ) || "ppp0".equals(intf.getName() ) )
+                    {
+                    }
+                }
+            } catch (Throwable e)
+            {
+                Log.e(TAG, "Throwable : " + e);
             }
         }
     }
