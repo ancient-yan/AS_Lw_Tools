@@ -30,6 +30,10 @@ import android.content.pm.Signature;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
@@ -1145,7 +1149,35 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "Throwable : " + e);
             }
         }
+        else if(strCmd.equals("1054") )
+        {
+            connMgr = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+
+            NetworkRequest.Builder builder = new NetworkRequest.Builder();
+            builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
+            builder.addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+
+            NetworkRequest request = builder.build();
+
+            ConnectivityManager.NetworkCallback callback = new ConnectivityManager.NetworkCallback()
+            {
+                @Override
+                public void onAvailable(Network network)
+                {
+                    super.onAvailable(network);
+
+                    Log.e(TAG, "network : " + network);
+
+                    connMgr.unregisterNetworkCallback(this);
+                    ConnectivityManager.setProcessDefaultNetwork(network);
+                }
+            };
+
+            connMgr.registerNetworkCallback(request, callback);
+        }
     }
+
+    ConnectivityManager connMgr = null;
 
     IMiddlewareService mService = null;
 

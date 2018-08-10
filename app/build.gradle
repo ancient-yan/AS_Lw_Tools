@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.appwoo.txtw.theme.deepblack"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 24
         versionCode 11
         versionName "1.1"
@@ -50,7 +50,7 @@ android {
 
 dependencies {
     //provided files('libs/framework.jar')
-    provided files('libs/framework_l2.jar')
+    provided files('libs/framework_gp50.jar')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
