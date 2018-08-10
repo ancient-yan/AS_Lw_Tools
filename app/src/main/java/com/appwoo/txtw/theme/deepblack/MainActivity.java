@@ -1184,6 +1184,10 @@ public class MainActivity extends AppCompatActivity {
         {
             ConnectivityManager.setProcessDefaultNetwork(null);
         }
+        else if(strCmd.equals("1057") )
+        {
+            HttpUtil.GetIP_wifi(this);
+        }
     }
 
     ConnectivityManager connMgr = null;

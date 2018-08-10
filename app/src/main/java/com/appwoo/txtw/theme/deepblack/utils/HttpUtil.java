@@ -1,5 +1,10 @@
 package com.appwoo.txtw.theme.deepblack.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
 import android.os.Handler;
 import android.util.Log;
 import org.json.JSONObject;
@@ -60,6 +65,44 @@ public class HttpUtil {
             };
         }.start();
     }
+
+    public static void sendHttpRequest(final Network network, final String address,
+                                       final HttpCallbackListener listener) {
+        new Thread() {
+            private HttpURLConnection connection;
+
+            public void run() {
+                try {
+                    URL url = new URL(address);
+                    connection = (HttpURLConnection) network.openConnection(url);
+                    connection.setRequestMethod("GET");
+                    connection.setConnectTimeout(8000);
+                    connection.setReadTimeout(8000);
+                    connection.setDoInput(true);
+                    connection.setDoOutput(true);
+                    InputStream in = connection.getInputStream();
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(in));
+                    StringBuilder builder = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        builder.append(line);
+                    }
+                    if (listener != null) {
+                        listener.onFinish(builder.toString());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    listener.onError(e);
+                } finally {
+                    if (connection != null) {
+                        connection.disconnect();
+                    }
+                }
+            };
+        }.start();
+    }
+
     public static void sendHttpRequestPost(final String address,
                                            final Map<String, String> params,
                                            final String encode,
@@ -205,6 +248,53 @@ public class HttpUtil {
                 Log.e(TAG, "onError = " + e);
             }
         });
+    }
+
+    private static void GetIP(Network network)
+    {
+        String address = "http://pv.sohu.com/cityjson?ie=utf-8";
+        Log.e(TAG, "address = " + address);
+
+        HttpUtil.sendHttpRequest(network, address, new HttpUtil.HttpCallbackListener()
+        {
+            @Override
+            public void onFinish(String response)
+            {
+                Log.e(TAG, "response = " + response);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "onError = " + e);
+            }
+        });
+    }
+
+    public static void GetIP_wifi(Context context)
+    {
+        final ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkRequest.Builder builder = new NetworkRequest.Builder();
+        builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
+        builder.addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+
+        NetworkRequest request = builder.build();
+
+        ConnectivityManager.NetworkCallback callback = new ConnectivityManager.NetworkCallback()
+        {
+            @Override
+            public void onAvailable(Network network)
+            {
+                super.onAvailable(network);
+
+                Log.e(TAG, "network : " + network);
+
+                connMgr.unregisterNetworkCallback(this);
+                GetIP(network);
+            }
+        };
+
+        connMgr.registerNetworkCallback(request, callback);
     }
 
     private static String toURLEncoded(String paramString)
