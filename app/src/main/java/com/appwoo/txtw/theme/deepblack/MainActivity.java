@@ -77,6 +77,7 @@ import android.os.SystemProperties;
 import android.provider.Settings;
 
 //import com.android.internal.widget.LockPatternUtils;
+import com.appwoo.txtw.theme.deepblack.utils.HttpUtil;
 import com.appwoo.txtw.theme.deepblack.utils.ReflectionEX;
 import com.appwoo.txtw.theme.deepblack.utils.Tools;
 import com.appwoo.txtw.theme.deepblack.utils.FieldUtils;
@@ -1174,6 +1175,14 @@ public class MainActivity extends AppCompatActivity {
             };
 
             connMgr.registerNetworkCallback(request, callback);
+        }
+        else if(strCmd.equals("1055") )
+        {
+            HttpUtil.GetIP();
+        }
+        else if(strCmd.equals("1056") )
+        {
+            ConnectivityManager.setProcessDefaultNetwork(null);
         }
     }
 
