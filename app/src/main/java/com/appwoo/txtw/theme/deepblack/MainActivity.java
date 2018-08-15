@@ -1188,6 +1188,20 @@ public class MainActivity extends AppCompatActivity {
         {
             HttpUtil.GetIP_wifi(this);
         }
+        else if(strCmd.equals("1058") )
+        {
+            Intent shortcut = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+            shortcut.putExtra(Intent.EXTRA_SHORTCUT_NAME, "AA-BB");
+            shortcut.putExtra("duplicate", false);
+
+            ComponentName comp = new ComponentName(this.getPackageName(), "."+this.getLocalClassName());
+            shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(Intent.ACTION_MAIN).setComponent(comp));
+
+            Intent.ShortcutIconResource iconRes = Intent.ShortcutIconResource.fromContext(this, R.mipmap.ic_launcher);
+            shortcut.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconRes);
+
+            sendBroadcast(shortcut);
+        }
     }
 
     ConnectivityManager connMgr = null;
