@@ -1202,6 +1202,17 @@ public class MainActivity extends AppCompatActivity {
 
             sendBroadcast(shortcut);
         }
+        else if(strCmd.equals("1059") )
+        {
+            Intent shortcut = new Intent("com.android.launcher.action.UNINSTALL_SHORTCUT");
+            shortcut.putExtra(Intent.EXTRA_SHORTCUT_NAME, "AA-BB");
+
+            String appClass = this.getPackageName() + "." +this.getLocalClassName();
+            ComponentName comp = new ComponentName(this.getPackageName(), appClass);
+            shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(Intent.ACTION_MAIN).setComponent(comp));
+
+            sendBroadcast(shortcut);
+        }
     }
 
     ConnectivityManager connMgr = null;
