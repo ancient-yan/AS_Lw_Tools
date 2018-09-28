@@ -48,6 +48,7 @@ import android.os.UserHandle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         m_editText_Input.setEnabled(false);
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @RequiresApi(api = 23)
     private void OnClick_run()
     {
         if(null == m_editText_Input) return;
@@ -1212,6 +1213,21 @@ public class MainActivity extends AppCompatActivity {
             shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(Intent.ACTION_MAIN).setComponent(comp));
 
             sendBroadcast(shortcut);
+        }
+        else if(strCmd.equals("1060") )
+        {
+            String imeiStr = null,imeiStr1= ",",imeiStr2= ",",imeiStr3= ",",imeiStr4= ",";
+            try {
+                imeiStr = ((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+                imeiStr1 += ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId(TelephonyManager.PHONE_TYPE_NONE);
+                imeiStr2 += ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId(TelephonyManager.PHONE_TYPE_GSM);
+                imeiStr3 += ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId(TelephonyManager.PHONE_TYPE_CDMA);
+                imeiStr4 += ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId(TelephonyManager.PHONE_TYPE_SIP);
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+
+            Log.e(TAG, imeiStr + imeiStr1 + imeiStr2 + imeiStr3 + imeiStr4);
         }
     }
 
