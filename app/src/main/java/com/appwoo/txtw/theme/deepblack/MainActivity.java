@@ -1266,6 +1266,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        else if(strCmd.equals("1062") )
+        {
+            String strUrl = HttpUtil.getTopDomain("http://auth-6a008460.wifi.com/?x=3772122744327161761146485117697964&c=28645199&ref=http://connectivitycheck.android.com/generate_204");
+            Log.e(TAG, "strUrl : " + strUrl);
+        }
     }
 
     ConnectivityManager connMgr = null;

@@ -20,7 +20,9 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 
 public class HttpUtil {
@@ -422,6 +424,99 @@ public class HttpUtil {
         }
 
         return false;
+    }
+
+    private static Set<String> websiteCountry = new HashSet<String>();
+    private static Set<String> websiteType = new HashSet<String>();
+
+    static {
+        websiteCountry.add("cn");
+        websiteCountry.add("hk");
+        websiteCountry.add("us");
+        websiteCountry.add("eu");
+        websiteCountry.add("tw");
+
+        websiteType.add("com");
+        websiteType.add("edu");
+        websiteType.add("gov");
+        websiteType.add("int");
+        websiteType.add("mil");
+        websiteType.add("cn");
+        websiteType.add("net");
+        websiteType.add("org");
+        websiteType.add("biz");
+        websiteType.add("info");
+        websiteType.add("pro");
+        websiteType.add("name");
+        websiteType.add("museum");
+        websiteType.add("coop");
+        websiteType.add("aero");
+        websiteType.add("xxx");
+        websiteType.add("idv");
+        websiteType.add("mobi");
+        websiteType.add("cc");
+        websiteType.add("tv");
+        websiteType.add("me");
+    }
+
+    public static boolean isEmpty(CharSequence str)
+    {
+        if (str == null || str.length() == 0)
+            return true;
+        else
+            return false;
+    }
+
+    public static String getTopDomain(String url)
+    {
+        String result = null;
+        try {
+            if (url == null || "".equals(url)) {
+                return null;
+            }
+            if (!url.startsWith("http")) {
+                url = "http://" + url;
+            }
+            URL url2 = new URL(url);
+            String host = url2.getHost();
+
+            int port = url2.getPort();
+            if (host != null) {
+                String[] strings = host.split("\\.");
+                if (strings != null && strings.length >= 2) {
+                    String last = strings[strings.length - 1];
+                    String lastSecond = strings[strings.length - 2];
+
+                    if (websiteCountry.contains(last)) {
+                        if (websiteType.contains(lastSecond)) {
+                            if (strings.length > 2) {
+                                result = strings[strings.length - 3] + "." + lastSecond + "." + last;
+                            }
+                        } else {
+                            result = lastSecond + "." + last;
+                        }
+                    } else {
+                        if (websiteType.contains(last)) {
+                            result = lastSecond + "." + last;
+                        }
+                    }
+                }
+            }
+            if (isEmpty(result)) {
+                result = host;
+                if (port != 80 && port > 0) {
+                    result += ":" + port;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (isEmpty(result)) {
+            result = url;
+        }
+
+        return result;
     }
 }
 
