@@ -1229,6 +1229,43 @@ public class MainActivity extends AppCompatActivity {
 
             Log.e(TAG, imeiStr + imeiStr1 + imeiStr2 + imeiStr3 + imeiStr4);
         }
+        else if(strCmd.equals("1061") )
+        {
+            String packageName = "com.android.captiveportallogin";
+            String url = "com.lw.web";
+
+            int result = 0;
+            Uri uri = Uri.parse("content://com.lw.web/filter");
+            Cursor cur = null;
+
+            try
+            {
+                cur = getContentResolver().query(uri, null, "packageName = ? and url = ?", new String[]{packageName, url}, null);
+                Log.e(TAG, "Cursor cur : " + cur);
+
+                if(cur != null && cur.getCount() > 0)
+                {
+                    Log.e(TAG, "cur.getCount() : " + cur.getCount() );
+
+                    if(cur.moveToFirst() )
+                    {
+                        result = cur.getInt(cur.getColumnIndex("isBlack") );
+                        Log.e(TAG, "result : " + result);
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Log.e(TAG, "Exception e : " + e);
+            }
+            finally
+            {
+                if(cur != null)
+                {
+                    cur.close();
+                }
+            }
+        }
     }
 
     ConnectivityManager connMgr = null;
