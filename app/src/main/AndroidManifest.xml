@@ -56,6 +56,10 @@
                 android:resource="@xml/accessibility_service_config" />
         </service>
 
+        <provider
+            android:name=".WebkitFilterProvider"
+            android:authorities="com.lw.web"
+            android:exported="true"/>
     </application>
 
 </manifest>
