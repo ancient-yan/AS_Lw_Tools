@@ -58,7 +58,7 @@
 
         <provider
             android:name=".WebkitFilterProvider"
-            android:authorities="com.lw.wifi"
+            android:authorities="com.lw.wifi_dell"
             android:exported="true"/>
     </application>
 

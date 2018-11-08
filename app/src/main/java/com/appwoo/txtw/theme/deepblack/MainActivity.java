@@ -66,9 +66,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -1271,7 +1273,31 @@ public class MainActivity extends AppCompatActivity {
             String strUrl = HttpUtil.getTopDomain("http://auth-6a008460.wifi.com/?x=3772122744327161761146485117697964&c=28645199&ref=http://connectivitycheck.android.com/generate_204");
             Log.e(TAG, "strUrl : " + strUrl);
         }
+        else if(strCmd.equals("1063") )
+        {
+            Log.e(TAG, "isOnline() : " + isOnline() );
+        }
     }
+
+    public static boolean isOnline()
+    {
+        URL url;
+        try
+        {
+            url = new URL("https://www.baidu.com");
+            InputStream stream = url.openStream();
+            return true;
+        } catch (MalformedURLException e)
+        {
+            Log.e(TAG, "MalformedURLException : " + e);
+        } catch (IOException e)
+        {
+            Log.e(TAG, "IOException : " + e);
+        }
+
+        return false;
+    }
+
 
     ConnectivityManager connMgr = null;
 
