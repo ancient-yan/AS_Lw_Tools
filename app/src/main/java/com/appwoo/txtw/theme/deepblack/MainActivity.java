@@ -65,6 +65,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.NetworkInterface;
@@ -1285,6 +1286,11 @@ public class MainActivity extends AppCompatActivity {
         try
         {
             url = new URL("https://www.baidu.com");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(1000);
+            connection.setReadTimeout(1000);
+            connection.setDoInput(false);
+            connection.setDoOutput(false);
             InputStream stream = url.openStream();
             return true;
         } catch (MalformedURLException e)
