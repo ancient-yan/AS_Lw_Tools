@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.NetworkInterface;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -517,6 +518,26 @@ public class HttpUtil {
         }
 
         return result;
+    }
+
+    public static boolean isOnline()
+    {
+        URL url;
+        try
+        {
+            url = new URL("https://www.baidu.com");
+            InputStream stream = url.openStream();
+            stream.close();
+            return true;
+        } catch (MalformedURLException e)
+        {
+            Log.e(TAG, "MalformedURLException : " + e);
+        } catch (IOException e)
+        {
+            Log.e(TAG, "IOException : " + e);
+        }
+
+        return false;
     }
 }
 

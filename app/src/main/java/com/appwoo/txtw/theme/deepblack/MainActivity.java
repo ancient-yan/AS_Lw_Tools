@@ -1276,34 +1276,9 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(strCmd.equals("1063") )
         {
-            Log.e(TAG, "isOnline() : " + isOnline() );
+            Log.e(TAG, "isOnline() : " + HttpUtil.isOnline() );
         }
     }
-
-    public static boolean isOnline()
-    {
-        URL url;
-        try
-        {
-            url = new URL("https://www.baidu.com");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(1000);
-            connection.setReadTimeout(1000);
-            connection.setDoInput(false);
-            connection.setDoOutput(false);
-            InputStream stream = url.openStream();
-            return true;
-        } catch (MalformedURLException e)
-        {
-            Log.e(TAG, "MalformedURLException : " + e);
-        } catch (IOException e)
-        {
-            Log.e(TAG, "IOException : " + e);
-        }
-
-        return false;
-    }
-
 
     ConnectivityManager connMgr = null;
 
