@@ -87,6 +87,7 @@ import com.appwoo.txtw.theme.deepblack.utils.Tools;
 import com.appwoo.txtw.theme.deepblack.utils.FieldUtils;
 import com.appwoo.txtw.theme.deepblack.utils.Utils;
 import com.appwoo.txtw.theme.deepblack.utils.WifiAdmin;
+import com.huawei.android.app.admin.DeviceRestrictionManager;
 import com.huawei.android.app.admin.DeviceSettingsManager;
 
 //import android.os.LwGlobal;
@@ -978,7 +979,8 @@ public class MainActivity extends AppCompatActivity {
         else if(strCmd.equals("1039") )
         {
             //ReflectionEX.ShowAllMethods(AlarmManager.class);
-            ReflectionEX.ShowAllMethods(DeviceSettingsManager.class);
+            //ReflectionEX.ShowAllMethods(DeviceSettingsManager.class);
+            ReflectionEX.ShowAllMethods(DeviceRestrictionManager.class);
         }
         else if(strCmd.equals("1040") )
         {
