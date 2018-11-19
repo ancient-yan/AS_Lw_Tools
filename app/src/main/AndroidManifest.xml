@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:sharedUserId="android.uid.system"
+    android:sharedUserId="android.uid.system.dell"
     package="com.appwoo.txtw.theme.deepblack">
 
     <uses-permission android:name="android.permission.PACKAGE_VERIFICATION_AGENT" />
