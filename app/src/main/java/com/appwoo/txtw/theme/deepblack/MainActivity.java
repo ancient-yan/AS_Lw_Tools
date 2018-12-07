@@ -1312,6 +1312,11 @@ public class MainActivity extends AppCompatActivity {
             int nRet = getContentResolver().delete(uri, null, null);
             Log.e(TAG, "nRet : " + nRet);
         }
+        else if(strCmd.equals("1067") )
+        {
+            String strAppName = Tools.getAppName(this);
+            Log.e(TAG, "strAppName : " + strAppName);
+        }
     }
 
     ConnectivityManager connMgr = null;

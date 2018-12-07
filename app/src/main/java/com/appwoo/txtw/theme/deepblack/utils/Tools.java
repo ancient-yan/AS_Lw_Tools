@@ -9,11 +9,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import android.util.Log;
+import java.util.Iterator;
+import java.util.List;
 
-/**
- * Created by Administrator on 2017/5/31.
- */
+import android.app.ActivityManager;
+import android.content.Context;
+import android.util.Log;
 
 public class Tools {
     private final static String TAG = "my_log";
@@ -107,5 +108,28 @@ public class Tools {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static String getAppName(Context context)
+    {
+        int pid = android.os.Process.myPid();
+
+        try
+        {
+            ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            List list = activityManager.getRunningAppProcesses();
+            Iterator i = list.iterator();
+            while (i.hasNext() )
+            {
+                ActivityManager.RunningAppProcessInfo info = (ActivityManager.RunningAppProcessInfo) (i.next() );
+
+                if (info.pid == pid) return info.processName;
+            }
+        }
+        catch (Exception e)
+        {
+        }
+
+        return null;
     }
 }
