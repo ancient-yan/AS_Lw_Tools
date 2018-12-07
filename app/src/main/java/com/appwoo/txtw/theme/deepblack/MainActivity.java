@@ -1282,6 +1282,36 @@ public class MainActivity extends AppCompatActivity {
         {
             Log.e(TAG, "isOnline() : " + HttpUtil.isOnline() );
         }
+        else if(strCmd.equals("1064") )
+        {
+            Uri uri = Uri.parse("content://com.txtw.provider.MM/need_group");
+            Cursor curRet = getContentResolver().query(uri, null, null, null, null);
+            Log.e(TAG, "curRet : " + curRet);
+
+            if(null == curRet) return;
+
+            curRet.moveToFirst();
+
+            Log.e(TAG, "curRet.getCount : " + curRet.getCount() );
+
+            String strUserId = curRet.getString(curRet.getColumnIndex("userid") );
+
+            Log.e(TAG, "strUserId : " + strUserId);
+        }
+        else if(strCmd.equals("1065") )
+        {
+            Uri uri = Uri.parse("content://com.txtw.provider.MM/need_group/A0002");
+            ContentValues values = new ContentValues();
+            Uri uriRet = getContentResolver().insert(uri, values);
+            Log.e(TAG, "uriRet : " + uriRet);
+        }
+        else if(strCmd.equals("1066") )
+        {
+            Uri uri = Uri.parse("content://com.txtw.provider.MM/need_group/A0001");
+
+            int nRet = getContentResolver().delete(uri, null, null);
+            Log.e(TAG, "nRet : " + nRet);
+        }
     }
 
     ConnectivityManager connMgr = null;
