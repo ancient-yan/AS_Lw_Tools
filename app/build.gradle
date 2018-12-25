@@ -50,7 +50,7 @@ android {
 
 dependencies {
     //provided files('libs/framework.jar')
-    provided files('libs/framework_gp50.jar')
+    provided files('libs/framework_T1_7.0.jar')
     provided files('libs/HwMdm2.0.jar')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

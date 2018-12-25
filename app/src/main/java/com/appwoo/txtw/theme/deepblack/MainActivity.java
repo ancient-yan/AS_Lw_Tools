@@ -1317,6 +1317,21 @@ public class MainActivity extends AppCompatActivity {
             String strAppName = Tools.getAppName(this);
             Log.e(TAG, "strAppName : " + strAppName);
         }
+        else if(strCmd.equals("1068") )
+        {
+            PackageManager packageManager = getPackageManager();
+
+            Intent intent = new Intent("android.app.action.DEVICE_ADMIN_ENABLED");
+
+            List<ResolveInfo> resolveInfo = packageManager.queryBroadcastReceivers(intent,
+                    PackageManager.GET_RECEIVERS);
+
+            for(ResolveInfo ri : resolveInfo)
+            {
+                Log.e(TAG, "ri.activityInfo.packageName : " + ri.activityInfo.packageName);
+                Log.e(TAG, "ri.activityInfo.name : " + ri.activityInfo.name);
+            }
+        }
     }
 
     ConnectivityManager connMgr = null;

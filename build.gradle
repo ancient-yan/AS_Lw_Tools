@@ -20,7 +20,7 @@ allprojects {
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
             //options.compilerArgs.add('-Xbootclasspath/p:app\\libs\\framework.jar')
-            options.compilerArgs.add('-Xbootclasspath/p:app\\libs\\framework_gp50.jar')
+            options.compilerArgs.add('-Xbootclasspath/p:app\\libs\\framework_T1_7.0.jar')
         }
     }
 }
