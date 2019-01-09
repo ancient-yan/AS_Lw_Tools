@@ -1331,6 +1331,16 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "ri.activityInfo.packageName : " + ri.activityInfo.packageName);
                 Log.e(TAG, "ri.activityInfo.name : " + ri.activityInfo.name);
             }
+        } else if (strCmd.equals("1069")) {
+            int flags = PackageManager.GET_UNINSTALLED_PACKAGES;
+            PackageManager packageManager = getPackageManager();
+
+            ArrayList<PackageInfo> packages = (ArrayList<PackageInfo>) packageManager.getInstalledPackages(flags);
+            for (PackageInfo pInfo : packages) {
+                if ((pInfo.applicationInfo.flags & ApplicationInfo.FLAG_PERSISTENT) > 0) {
+                    Log.e(TAG, "ApplicationInfo.FLAG_PERSISTENT : " + pInfo.packageName);
+                }
+            }
         }
     }
 
