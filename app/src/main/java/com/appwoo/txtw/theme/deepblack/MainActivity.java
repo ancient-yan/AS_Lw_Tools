@@ -1342,6 +1342,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        else if (strCmd.equals("1070")) {
+            int flags = PackageManager.GET_UNINSTALLED_PACKAGES;
+            PackageManager packageManager = getPackageManager();
+
+            ArrayList<PackageInfo> packages = (ArrayList<PackageInfo>) packageManager.getInstalledPackages(flags);
+            for (PackageInfo pInfo : packages) {
+                if ((pInfo.applicationInfo.flags & ApplicationInfo.FLAG_ALLOW_CLEAR_USER_DATA) <= 0) {
+                    Log.e(TAG, "ApplicationInfo.FLAG_ALLOW_CLEAR_USER_DATA : " + pInfo.packageName);
+                }
+            }
+        }
     }
 
     ConnectivityManager connMgr = null;
