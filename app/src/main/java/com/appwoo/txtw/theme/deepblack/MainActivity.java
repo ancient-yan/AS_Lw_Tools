@@ -1,5 +1,6 @@
 package com.appwoo.txtw.theme.deepblack;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -1353,6 +1354,32 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        else if (strCmd.equals("1071")) {
+            grantRuntimePermission(this, "com.appwoo.txtw.theme.deepblack", Manifest.permission.READ_EXTERNAL_STORAGE, true);
+        }
+    }
+
+    public static boolean grantRuntimePermission(Context context, String packageName, String permissionName, boolean granted) {
+        try {
+            PackageManager pm = context.getPackageManager();
+            UserHandle user = new UserHandle(0);
+
+            if (granted) {
+                pm.grantRuntimePermission(packageName, permissionName, user);
+                pm.updatePermissionFlags(permissionName, packageName,
+                        PackageManager.FLAG_PERMISSION_SYSTEM_FIXED,
+                        PackageManager.FLAG_PERMISSION_SYSTEM_FIXED, user);
+            } else {
+                pm.revokeRuntimePermission(packageName, permissionName, user);
+                pm.updatePermissionFlags(permissionName, packageName,
+                        PackageManager.FLAG_PERMISSION_SYSTEM_FIXED, 0, user);
+            }
+            return true;
+        } catch (Exception e) {
+            Log.e(TAG, "grantRuntimePermission.Exception : " + e);
+        }
+
+        return false;
     }
 
     ConnectivityManager connMgr = null;
