@@ -20,8 +20,8 @@ android {
 
     signingConfigs {
 	debug {
-		//storeFile file('E:\\github\\Doc\\android\\sign_key\\as_eclipse\\platform_lw.keystore')
-        storeFile file('E:\\github\\Doc\\android\\sign_key\\as_eclipse\\platform_google.keystore')
+		storeFile file('E:\\github\\Doc\\android\\sign_key\\as_eclipse\\platform_lw.keystore')
+        //storeFile file('E:\\github\\Doc\\android\\sign_key\\as_eclipse\\platform_google.keystore')
         //storeFile file('E:\\github\\Doc\\android\\sign_key\\as_eclipse\\platform_lw_out.keystore')
 		storePassword 'android'
 		keyAlias 'androiddebugkey'

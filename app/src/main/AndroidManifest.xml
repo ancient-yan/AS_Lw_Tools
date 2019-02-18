@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:sharedUserId="android.uid.system.dell"
+    android:sharedUserId="android.uid.system"
     package="com.appwoo.txtw.theme.deepblack">
 
     <uses-permission android:name="android.permission.PACKAGE_VERIFICATION_AGENT" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
         android:allowBackup="true"

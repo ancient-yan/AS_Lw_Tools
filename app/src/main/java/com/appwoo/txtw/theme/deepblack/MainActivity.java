@@ -1353,9 +1353,14 @@ public class MainActivity extends AppCompatActivity {
                     Log.e(TAG, "ApplicationInfo.FLAG_ALLOW_CLEAR_USER_DATA : " + pInfo.packageName);
                 }
             }
-        }
-        else if (strCmd.equals("1071")) {
-            grantRuntimePermission(this, "com.appwoo.txtw.theme.deepblack", Manifest.permission.READ_EXTERNAL_STORAGE, true);
+        } else if (strCmd.equals("1071")) {
+            grantRuntimePermission(this, "com.appwoo.txtw.theme.deepblack", Manifest.permission.READ_EXTERNAL_STORAGE, false);
+        } else if (strCmd.equals("1072")) {
+            PackageManager pm = getPackageManager();
+            UserHandle user = new UserHandle(0);
+
+            int nRet = pm.getPermissionFlags(Manifest.permission.READ_EXTERNAL_STORAGE, "com.appwoo.txtw.theme.deepblack", user);
+            Log.e(TAG, "nRet : " + nRet);
         }
     }
 
@@ -1367,12 +1372,13 @@ public class MainActivity extends AppCompatActivity {
             if (granted) {
                 pm.grantRuntimePermission(packageName, permissionName, user);
                 pm.updatePermissionFlags(permissionName, packageName,
-                        PackageManager.FLAG_PERMISSION_SYSTEM_FIXED,
-                        PackageManager.FLAG_PERMISSION_SYSTEM_FIXED, user);
+                        PackageManager.FLAG_PERMISSION_POLICY_FIXED,
+                        PackageManager.FLAG_PERMISSION_POLICY_FIXED, user);
             } else {
-                pm.revokeRuntimePermission(packageName, permissionName, user);
                 pm.updatePermissionFlags(permissionName, packageName,
-                        PackageManager.FLAG_PERMISSION_SYSTEM_FIXED, 0, user);
+                        PackageManager.FLAG_PERMISSION_POLICY_FIXED
+                                | PackageManager.FLAG_PERMISSION_SYSTEM_FIXED, 0, user);
+                pm.revokeRuntimePermission(packageName, permissionName, user);
             }
             return true;
         } catch (Exception e) {
