@@ -1354,7 +1354,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         } else if (strCmd.equals("1071")) {
-            grantRuntimePermission(this, "com.appwoo.txtw.theme.deepblack", Manifest.permission.READ_EXTERNAL_STORAGE, false);
+            grantRuntimePermission(this, "com.appwoo.txtw.theme.deepblack", Manifest.permission.READ_EXTERNAL_STORAGE, true);
         } else if (strCmd.equals("1072")) {
             PackageManager pm = getPackageManager();
             UserHandle user = new UserHandle(0);
@@ -1502,8 +1502,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static class MyDialogFragment extends DialogFragment {
         private String[] mListStr = {
-                "禁用WebView",
-                "启用WebView",
+                "显示xposted",
+                "隐藏xposted",
                 "启用adb",
                 "禁用adb",
                 "禁用系统锁屏",
@@ -1525,8 +1525,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            final ComponentName componentName = new ComponentName("de.robv.android.xposed.installer", "de.robv.android.xposed.installer.WelcomeActivity");
+
             Bundle bundle = getArguments();
             final int layoutId = bundle.getInt("layout", -1);
             final Activity activity = getActivity();
@@ -1543,21 +1544,24 @@ public class MainActivity extends AppCompatActivity {
                 {
                     dismiss();
 
-                    switch(position)
-                    {
-                        case 0:
-                        {
-                            SystemProperties.set("persist.sys.webviewdisablelw", "1");
+                    switch (position) {
+                        case 0: {
+                            PackageManager packageManager = activity.getPackageManager();
 
-                            Toast.makeText(activity, "禁用WebView", Toast.LENGTH_SHORT).show();
+                            packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
+                                    PackageManager.DONT_KILL_APP);
+
+                            Toast.makeText(activity, "显示xposted", Toast.LENGTH_SHORT).show();
                         }
                         break;
 
-                        case 1:
-                        {
-                            SystemProperties.set("persist.sys.webviewdisablelw", "0");
+                        case 1: {
+                            PackageManager packageManager = activity.getPackageManager();
 
-                            Toast.makeText(activity, "启用WebView", Toast.LENGTH_SHORT).show();
+                            packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                                    PackageManager.DONT_KILL_APP);
+
+                            Toast.makeText(activity, "隐藏xposted", Toast.LENGTH_SHORT).show();
                         }
                         break;
 
