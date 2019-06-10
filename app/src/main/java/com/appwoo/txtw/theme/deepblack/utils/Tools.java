@@ -143,7 +143,7 @@ public class Tools {
         for (PackageInfo pak : packages) {
             if ((pak.applicationInfo.flags & pak.applicationInfo.FLAG_SYSTEM) <= 0) {
                 Log.d(TAG, "packageName : " + pak.packageName);
-                Log.d(TAG, "\t versionCode : " + pak.versionCode + "\t versionName : " + pak.versionName);
+                Log.d(TAG, "\t versionCode : " + pak.versionCode + "\t\t versionName : " + pak.versionName + "\t\t\t label : " + packageManager.getApplicationLabel(pak.applicationInfo));
             }
         }
     }
