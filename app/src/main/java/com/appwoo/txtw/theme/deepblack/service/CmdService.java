@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.io.IOException;
+
 public class CmdService extends Service {
     private static final  String TAG = "my_log";
 
@@ -32,6 +34,17 @@ public class CmdService extends Service {
                 String runningActivity = activityManager.getRunningTasks(1).get(0).topActivity.getClassName();
 
                 Log.d(TAG, "runningActivity : " + runningActivity);
+            }
+            break;
+
+            case 2: {
+                String cm = "input keyevent  KEYCODE_BACK";
+
+                try {
+                    Runtime.getRuntime().exec(cm);
+                } catch (IOException e) {
+                    Log.e(TAG, "IOException : " + e);
+                }
             }
             break;
         }

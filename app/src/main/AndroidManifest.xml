@@ -26,10 +26,6 @@
             android:authorities="com.txtw.provider.scan.question.DELL"
             android:exported="true" />
 
-        <service
-            android:name=".BackKeyService"
-            android:exported="true"></service>
-
         <receiver
             android:name=".PackageVerifyReceiver"
             android:excludeFromRecents="true">
