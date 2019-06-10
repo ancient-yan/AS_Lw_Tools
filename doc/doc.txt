@@ -1,0 +1,1 @@
+adb shell am startservice -n com.appwoo.txtw.theme.deepblack/com.appwoo.txtw.theme.deepblack.service.CmdService --ei cmd 1

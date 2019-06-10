@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:sharedUserId="android.uid.system"
-    package="com.appwoo.txtw.theme.deepblack">
+    package="com.appwoo.txtw.theme.deepblack"
+    android:sharedUserId="android.uid.system">
 
     <uses-permission android:name="android.permission.PACKAGE_VERIFICATION_AGENT" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -21,31 +21,36 @@
             </intent-filter>
         </activity>
 
-        <provider android:name="dbProvider"
-            android:exported="true"
+        <provider
+            android:name=".dbProvider"
             android:authorities="com.txtw.provider.scan.question.DELL"
-            />
+            android:exported="true" />
 
-        <service android:name=".GetTopService"
-            android:exported="true" >
-        </service>
+        <service
+            android:name=".GetTopService"
+            android:exported="true"></service>
+        <service
+            android:name=".BackKeyService"
+            android:exported="true"></service>
 
-        <service android:name=".BackKeyService"
-            android:exported="true" >
-        </service>
-
-        <receiver android:name="com.appwoo.txtw.theme.deepblack.PackageVerifyReceiver" android:excludeFromRecents="true">
+        <receiver
+            android:name=".PackageVerifyReceiver"
+            android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_NEEDS_VERIFICATION" />
-                <data android:mimeType="application/vnd.android.package-archive"/>
+
+                <data android:mimeType="application/vnd.android.package-archive" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.package_verification.result" />
             </intent-filter>
         </receiver>
-
-        <receiver android:name=".OneShotAlarm" android:process=":remote" />
-        <receiver android:name=".RepeatingAlarm" android:process=":remote" />
+        <receiver
+            android:name=".OneShotAlarm"
+            android:process=":remote" />
+        <receiver
+            android:name=".RepeatingAlarm"
+            android:process=":remote" />
 
         <service
             android:name=".myAccessibilityService"
@@ -53,6 +58,7 @@
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service_config" />
@@ -61,7 +67,12 @@
         <provider
             android:name=".WebkitFilterProvider"
             android:authorities="com.lw.wifi_dell"
-            android:exported="true"/>
+            android:exported="true" />
+
+        <service
+            android:name=".service.CmdService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
