@@ -27,9 +27,6 @@
             android:exported="true" />
 
         <service
-            android:name=".GetTopService"
-            android:exported="true"></service>
-        <service
             android:name=".BackKeyService"
             android:exported="true"></service>
 
