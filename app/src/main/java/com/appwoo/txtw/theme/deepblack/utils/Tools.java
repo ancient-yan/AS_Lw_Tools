@@ -9,11 +9,14 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 public class Tools {
@@ -131,5 +134,16 @@ public class Tools {
         }
 
         return null;
+    }
+
+    public static void getInstalled3PApp(Context context) {
+        if (null == context) return;
+        PackageManager packageManager = context.getPackageManager();
+        ArrayList<PackageInfo> packages = (ArrayList<PackageInfo>) packageManager.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES);
+        for (PackageInfo pak : packages) {
+            if ((pak.applicationInfo.flags & pak.applicationInfo.FLAG_SYSTEM) <= 0) {
+                Log.d(TAG, "packageName : " + pak.packageName + "\t versionCode : " + pak.versionCode);
+            }
+        }
     }
 }

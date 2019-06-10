@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.appwoo.txtw.theme.deepblack.utils.Tools;
+
 import java.io.IOException;
 
 public class CmdService extends Service {
@@ -45,6 +47,11 @@ public class CmdService extends Service {
                 } catch (IOException e) {
                     Log.e(TAG, "IOException : " + e);
                 }
+            }
+            break;
+
+            case 3: {
+                Tools.getInstalled3PApp(this);
             }
             break;
         }
