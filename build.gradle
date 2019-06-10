@@ -19,8 +19,7 @@ allprojects {
 
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
-            //options.compilerArgs.add('-Xbootclasspath/p:app\\libs\\framework.jar')
-            options.compilerArgs.add('-Xbootclasspath/p:app\\libs\\framework_T1_7.0.jar')
+            options.compilerArgs.add('-Xbootclasspath/p:D:\\gitee\\EngineerMode\\jar\\framework_T1_7.0.jar')
         }
     }
 }
