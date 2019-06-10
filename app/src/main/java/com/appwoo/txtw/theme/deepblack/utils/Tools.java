@@ -142,7 +142,8 @@ public class Tools {
         ArrayList<PackageInfo> packages = (ArrayList<PackageInfo>) packageManager.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES);
         for (PackageInfo pak : packages) {
             if ((pak.applicationInfo.flags & pak.applicationInfo.FLAG_SYSTEM) <= 0) {
-                Log.d(TAG, "packageName : " + pak.packageName + "\t versionCode : " + pak.versionCode);
+                Log.d(TAG, "packageName : " + pak.packageName);
+                Log.d(TAG, "\t versionCode : " + pak.versionCode + "\t versionName : " + pak.versionName);
             }
         }
     }
