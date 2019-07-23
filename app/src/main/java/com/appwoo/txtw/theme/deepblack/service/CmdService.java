@@ -6,11 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
+import android.os.UserHandle;
+import android.os.UserManager;
 import android.util.Log;
 
 import com.appwoo.txtw.theme.deepblack.utils.Tools;
 
 import java.io.IOException;
+import java.util.List;
 
 public class CmdService extends Service {
     private static final  String TAG = "my_log";
@@ -61,6 +64,14 @@ public class CmdService extends Service {
                 getPackageManager().setApplicationEnabledSetting("com.tencent.mobileqq", PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
                 getPackageManager().setApplicationEnabledSetting("com.tencent.mm", PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
                 getPackageManager().setApplicationEnabledSetting("com.eg.android.AlipayGphone", PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
+            }
+            break;
+
+            case 5: {
+                UserManager userManager = (UserManager) getSystemService(Context.USER_SERVICE);
+                List<UserHandle> users = userManager.getUserProfiles();
+
+                Log.d(TAG, "users : " + users);
             }
             break;
         }
