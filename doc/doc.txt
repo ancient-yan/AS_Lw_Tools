@@ -1,1 +1,3 @@
 adb shell am startservice -n com.appwoo.txtw.theme.deepblack/com.appwoo.txtw.theme.deepblack.service.CmdService --ei cmd 1
+adb shell am startservice  --user 0   -n com.appwoo.txtw.theme.deepblack/com.appwoo.txtw.theme.deepblack.service.CmdService --ei cmd 6
+adb shell am startservice  --user 10   -n com.appwoo.txtw.theme.deepblack/com.appwoo.txtw.theme.deepblack.service.CmdService --ei cmd 6
