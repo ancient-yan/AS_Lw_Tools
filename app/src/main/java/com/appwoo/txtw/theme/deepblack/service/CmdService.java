@@ -4,6 +4,8 @@ import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.LauncherActivityInfo;
+import android.content.pm.LauncherApps;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.os.UserHandle;
@@ -72,6 +74,13 @@ public class CmdService extends Service {
                 List<UserHandle> users = userManager.getUserProfiles();
 
                 Log.d(TAG, "users : " + users);
+
+                LauncherApps launcherApps = (LauncherApps) getSystemService(Context.LAUNCHER_APPS_SERVICE);
+                final List<LauncherActivityInfo> apps = launcherApps.getActivityList(null, users.get(1));
+
+                for (LauncherActivityInfo app : apps) {
+                    Log.d(TAG, "app : " + app.getComponentName());
+                }
             }
             break;
         }
