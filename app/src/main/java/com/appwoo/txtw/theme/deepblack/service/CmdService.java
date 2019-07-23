@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.LauncherActivityInfo;
 import android.content.pm.LauncherApps;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.IBinder;
 import android.os.UserHandle;
 import android.os.UserManager;
@@ -80,6 +81,21 @@ public class CmdService extends Service {
 
                 for (LauncherActivityInfo app : apps) {
                     Log.d(TAG, "app : " + app.getComponentName());
+                }
+            }
+            break;
+
+            case 6: {
+                PackageManager packageManager = getPackageManager();
+
+                Intent intent_2 = new Intent(Intent.ACTION_MAIN);
+                intent_2.addCategory(Intent.CATEGORY_LAUNCHER);
+
+                List<ResolveInfo> resolveInfo = packageManager.queryIntentActivities(intent_2,
+                        PackageManager.MATCH_ALL);
+
+                for (ResolveInfo ri : resolveInfo) {
+                    Log.d(TAG, "ri.activityInfo.packageName : " + ri.activityInfo.packageName);
                 }
             }
             break;
