@@ -23,7 +23,8 @@ android {
 		//storeFile file('E:\\github\\Doc\\android\\sign_key\\as_eclipse\\platform_lw.keystore')
         //storeFile file('E:\\github\\Doc\\android\\sign_key\\as_eclipse\\platform_google.keystore')
         //storeFile file('E:\\github\\private_as\\doc\\key\\20190515\\platform')
-        storeFile file('E:\\github\\Doc\\android\\sign_key\\as_eclipse\\platform_lw_out.keystore')
+//        storeFile file('E:\\github\\Doc\\android\\sign_key\\as_eclipse\\platform_lw_out.keystore')
+        storeFile file('E:\\github\\private_as\\doc\\key\\20190515\\platform')
 		storePassword 'android'
 		keyAlias 'androiddebugkey'
 		keyPassword 'android'
