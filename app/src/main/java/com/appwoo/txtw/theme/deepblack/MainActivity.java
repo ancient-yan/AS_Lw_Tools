@@ -101,7 +101,7 @@ import android.app.IMiddlewareService;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private EditText m_editText_Input;
     private Button m_button_Run;

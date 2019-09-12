@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.appwoo.txtw.theme.deepblack"
     android:sharedUserId="android.uid.system">
 
-    <uses-permission android:name="android.permission.PACKAGE_VERIFICATION_AGENT" />
+    <uses-permission android:name="android.permission.PACKAGE_VERIFICATION_AGENT"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_SMS" />
 
