@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--android:sharedUserId="android.uid.system"-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.appwoo.txtw.theme.deepblack"
-    android:sharedUserId="android.uid.system">
+    package="com.appwoo.txtw.theme.deepblack">
 
     <uses-permission android:name="android.permission.PACKAGE_VERIFICATION_AGENT"
         tools:ignore="ProtectedPermissions" />
