@@ -2,6 +2,7 @@ package com.appwoo.txtw.theme.deepblack.service;
 
 import android.app.ActivityManager;
 import android.app.Service;
+import android.app.mia.MiaMdmPolicyManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.LauncherActivityInfo;
@@ -13,6 +14,7 @@ import android.os.UserHandle;
 import android.os.UserManager;
 import android.util.Log;
 
+import com.appwoo.txtw.theme.deepblack.utils.ReflectionEX;
 import com.appwoo.txtw.theme.deepblack.utils.Tools;
 
 import java.io.IOException;
@@ -97,6 +99,15 @@ public class CmdService extends Service {
                 for (ResolveInfo ri : resolveInfo) {
                     Log.d(TAG, "ri.activityInfo.packageName : " + ri.activityInfo.packageName);
                 }
+            }
+            break;
+
+            case 7: {
+                ReflectionEX.ShowAllMethods(MiaMdmPolicyManager.class);
+            }
+            break;
+
+            case -1: {
             }
             break;
         }
