@@ -107,6 +107,16 @@ public class CmdService extends Service {
             }
             break;
 
+            case 8: {
+                try {
+                    Class<?> c = Class.forName("com.vivo.services.cust.VivoCustomManager");
+                    ReflectionEX.ShowAllMethods(c);
+                } catch (ClassNotFoundException e) {
+                    Log.e(TAG, "ClassNotFoundException : " + e);
+                }
+            }
+            break;
+
             case -1: {
             }
             break;
