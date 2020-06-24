@@ -1,11 +1,9 @@
 package com.appwoo.txtw.theme.deepblack;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
-import android.app.AppOpsManager;
 import android.app.DialogFragment;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -23,7 +21,6 @@ import android.content.pm.IPackageManager;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageItemInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageParser;
 import android.content.pm.PermissionGroupInfo;
 import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
@@ -47,7 +44,6 @@ import android.os.StrictMode;
 import android.os.UserHandle;
 //import android.service.persistentdata.PersistentDataBlockManager;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -65,14 +61,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-import java.net.HttpURLConnection;
 import java.net.InetAddress;
-import java.net.MalformedURLException;
 import java.net.NetworkInterface;
 import java.net.Socket;
-import java.net.SocketException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -85,11 +76,8 @@ import android.provider.Settings;
 import com.appwoo.txtw.theme.deepblack.utils.HttpUtil;
 import com.appwoo.txtw.theme.deepblack.utils.ReflectionEX;
 import com.appwoo.txtw.theme.deepblack.utils.Tools;
-import com.appwoo.txtw.theme.deepblack.utils.FieldUtils;
-import com.appwoo.txtw.theme.deepblack.utils.Utils;
 import com.appwoo.txtw.theme.deepblack.utils.WifiAdmin;
 import com.huawei.android.app.admin.DeviceRestrictionManager;
-import com.huawei.android.app.admin.DeviceSettingsManager;
 
 //import android.os.LwGlobal;
 
@@ -892,34 +880,6 @@ public class MainActivity extends Activity {
             //system root media
             int uid = android.os.Process.getUidForName("media");
             Log.e(TAG, "uid : " + uid);
-        }
-        else if(strCmd.equals("1035") )
-        {
-            MyActivityManager activityManager = new MyActivityManager();
-            Class oriClass = null;
-            try {
-                oriClass = activityManager.getOrignalClass();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            try {
-                Object obj = FieldUtils.readStaticField(oriClass, "gDefault");
-                final Object oriObj = FieldUtils.readField(obj, "mInstance");
-                activityManager.orignal = oriObj;
-                List<Class<?>> interfaces = Utils.getAllInterfaces(oriObj.getClass());
-                Class[] ifs = interfaces != null && interfaces.size() > 0 ? interfaces.toArray(new Class[interfaces.size()]) : new Class[0];
-                final Object object = Proxy.newProxyInstance(oriObj.getClass().getClassLoader(),ifs, activityManager);
-
-                FieldUtils.writeStaticField(oriClass, "gDefault", new android.util.Singleton<Object>() {
-                    @Override
-                    protected Object create() {
-                        return object;
-                    }
-                });
-
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
         }
         else if(strCmd.equals("1036") )
         {
