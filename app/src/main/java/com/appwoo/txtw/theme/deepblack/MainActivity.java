@@ -1425,25 +1425,6 @@ public class MainActivity extends Activity {
         this.registerReceiver(mBroadcastReceiver, intentFilter);
     }
 
-
-    public class MyActivityManager  implements InvocationHandler
-    {
-        public Object orignal ;
-
-        public Class<?> getOrignalClass() throws ClassNotFoundException {
-            return Class.forName("android.app.ActivityManagerNative");
-        }
-
-        @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
-            Log.d(TAG, "before method called:" + method.getName());
-            final Object obj =  method.invoke(orignal, args);
-            Log.d(TAG, "after method called:" + method.getName());
-            return obj;
-        }
-    }
-
     class PackageDeleteObserver extends IPackageDeleteObserver.Stub {
         public void packageDeleted(String packageName, int returnCode) {
             Log.e(TAG, "packageName : " + packageName);
