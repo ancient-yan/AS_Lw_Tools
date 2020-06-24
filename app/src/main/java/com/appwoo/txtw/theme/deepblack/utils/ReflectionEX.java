@@ -63,7 +63,7 @@ public class ReflectionEX
         final int userId = context.getUserId();
 
         try {
-            ParceledListSlice<ApplicationInfo> slice = mPM.getInstalledApplications(flags, userId);
+            ParceledListSlice<ApplicationInfo> slice = mPM.getInstalledApplications(flags, 999);
             return slice.getList();
         } catch (RemoteException e) {
             Log.e(TAG, "RemoteException : " + e);

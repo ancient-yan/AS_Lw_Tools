@@ -1061,8 +1061,8 @@ public class MainActivity extends Activity {
         {
             PackageManager pm = getPackageManager();
 
-            //List<ApplicationInfo> listAppcations = pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
-            List<ApplicationInfo> listAppcations = ReflectionEX.getInstalledApplications(this, PackageManager.GET_UNINSTALLED_PACKAGES);
+            List<ApplicationInfo> listAppcations = pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+//            List<ApplicationInfo> listAppcations = ReflectionEX.getInstalledApplications(this, PackageManager.GET_UNINSTALLED_PACKAGES);
             if(null == listAppcations) return;
 
             for (ApplicationInfo app : listAppcations)
@@ -1073,11 +1073,12 @@ public class MainActivity extends Activity {
                 }
                 else if ( (app.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0)
                 {
-                    Log.e(TAG, "FLAG_UPDATED_SYSTEM_APP");
+                    Log.i(TAG, "FLAG_UPDATED_SYSTEM_APP");
                 }
                 else
                 {
-                    Log.e(TAG, "packageName : " + app.packageName);
+                    Log.i(TAG, "packageName : " + app.packageName);
+                    Log.i(TAG, "uid : " + app.uid);
                 }
             }
         }
