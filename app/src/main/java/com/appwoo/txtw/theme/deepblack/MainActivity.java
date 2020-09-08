@@ -159,81 +159,7 @@ public class MainActivity extends Activity {
         strCmd = (String)lVars.get(0);
 
         Log.e(TAG, " strCmd : " + strCmd);
-        if(strCmd.equals("1") )
-        {
-            SystemProperties.set("persist.sys.usbdebugdisablelw", "1");
-            Settings.Global.putInt(getContentResolver(), Settings.Global.ADB_ENABLED, 1);
-        }
-        else if(strCmd.equals("2") )
-        {
-            Settings.Global.putInt(getContentResolver(), Settings.Global.ADB_ENABLED, 0);
-            SystemProperties.set("persist.sys.usbdebugdisablelw", "0");
-        }
-        else if(strCmd.equals("3") )
-        {
-            Settings.Global.putInt(getContentResolver(), Settings.Global.PACKAGE_VERIFIER_ENABLE, 0);
-        }
-        else if(strCmd.equals("4") )
-        {
-            if(lVars.size() < 2) return;
-
-            String strVar = (String)lVars.get(1);
-
-            Log.e(TAG, " strVar : " + strVar);
-
-            Uri uri = Uri.parse("content://com.txtw.provider.scan.question");
-            ContentValues values = new ContentValues();
-            values.put("mark", strVar);
-
-            getContentResolver().update(uri, values, " item = 1 ", null);
-        }
-        else if(strCmd.equals("5") )
-        {
-            SystemProperties.set("persist.sys.root_switch", "1");
-        }
-        else if(strCmd.equals("6") )
-        {
-            SystemProperties.set("persist.sys.usb.config", "mtp,adb");
-        }
-        else if(strCmd.equals("100") )
-        {
-/*            Intent intent = new Intent(Intent.ACTION_MASTER_CLEAR);
-            intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-            intent.putExtra(Intent.EXTRA_REASON, "Lw_Tools_diff");
-            sendBroadcast(intent);
- */       }
-        else if(strCmd.equals("1001") )
-        {
-            PackageManager packageManager = getPackageManager();
-
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-
-            List<ResolveInfo> resolveInfo = packageManager.queryIntentActivities(intent,
-                    PackageManager.MATCH_DEFAULT_ONLY);
-
-            for(ResolveInfo ri : resolveInfo)
-            {
-                Log.e(TAG, "ri.activityInfo.packageName : " + ri.activityInfo.packageName);
-            }
-        }
-        else if(strCmd.equals("1002") )
-        {
-            String filename = "screenshot.png";
-            String mSavedPath = "/sdcard/" + filename;
-
-            Log.e(TAG, mSavedPath);
-
-            try {
-                Runtime.getRuntime().exec("screencap -p " + mSavedPath);
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            Log.e(TAG, "screencap -p " + mSavedPath);
-        }
-        else if(strCmd.equals("1003") )
+       if(strCmd.equals("1003") )
         {
             final ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
             @SuppressWarnings("deprecation")
@@ -244,38 +170,6 @@ public class MainActivity extends Activity {
             {
                 Log.e(TAG, " : " + rt.persistentId);
              //   if (am != null) am.removeTask(rt.persistentId);
-            }
-        }
-        else if(strCmd.equals("1004") )
-        {
-            PackageManager packageManager = getPackageManager();
-            ComponentName componentName = new ComponentName("com.android.settings", "com.android.settings.Settings");
-            int res = packageManager.getComponentEnabledSetting(componentName);
-            if (res == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT
-                    || res == PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
-                // 隐藏应用图标
-                packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP);
-            } else {
-                // 显示应用图标
-                packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
-                        PackageManager.DONT_KILL_APP);
-            }
-        }
-        else if(strCmd.equals("1005") )
-        {
-            PackageManager packageManager = getPackageManager();
-            ComponentName componentName = new ComponentName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
-            int res = packageManager.getComponentEnabledSetting(componentName);
-            if (res == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT
-                    || res == PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
-                // 隐藏应用图标
-                packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP);
-            } else {
-                // 显示应用图标
-                packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
-                        PackageManager.DONT_KILL_APP);
             }
         }
         else if(strCmd.equals("1006") )
