@@ -172,143 +172,6 @@ public class MainActivity extends Activity {
              //   if (am != null) am.removeTask(rt.persistentId);
             }
         }
-        else if(strCmd.equals("1006") )
-        {
-
-            int Uid  = getUserId();
-            Log.e(TAG, "Uid : " + Uid);
-
-
-            File dir = new File("/data/data/com.browser.txtw/databases");
-            if(dir.exists() )
-            {
-                Log.e(TAG, "exists : " + dir + "   ok");
-            }
-            else
-            {
-                Log.e(TAG, "exists : " + dir + "   fail");
-            }
-
-            if(dir.isDirectory() )
-            {
-                Log.e(TAG, "isDirectory : " + dir + "   true");
-            }
-            else
-            {
-                Log.e(TAG, "isDirectory : " + dir + "   false");
-            }
-
-            //FileUtils.setPermissions("/data/data/com.browser.txtw/databases", 0777, -1, -1);
-
-
-            File file = new File("/data/data/com.browser.txtw/databases/cc.db");
-            if(file.exists() )
-            {
-                Log.e(TAG, "exists : " + file + "   ok");
-            }
-            else
-            {
-                Log.e(TAG, "exists : " + file + "   fail");
-            }
-
-            if(file.isFile() )
-            {
-                Log.e(TAG, "isFile : " + file + "   true");
-            }
-            else
-            {
-                Log.e(TAG, "isFile : " + file + "   false");
-            }
-
-            if (file.delete() )
-            {
-                Log.e(TAG, "del file : " + file + "   ok");
-            }
-            else
-            {
-                Log.e(TAG, "del file : " + file + "   fail");
-            }
-        }
-        else if(strCmd.equals("1007") )
-        {
-            String cm = "ps /init";
-
-            Log.e(TAG, "cm : " + cm);
-
-            String memoryUsage = null;
-
-            int ch;
-            try {
-                Process p = Runtime.getRuntime().exec(cm);
-                InputStream in = p.getInputStream();
-                StringBuffer sb = new StringBuffer(512);
-                while ((ch = in.read()) != -1) {
-                    sb.append((char) ch);
-                }
-                memoryUsage = sb.toString();
-            } catch (IOException e) {
-                Log.v(TAG, e.toString());
-            }
-            String[] poList = memoryUsage.split("\r|\n|\r\n");
-            String memusage = poList[1].concat("\n");
-
-            Log.e(TAG, "memusage : " + memusage);
-        }
-        else if(strCmd.equals("1008") )
-        {
-            int Uid  = getUserId();
-            Log.e(TAG, "Uid : " + Uid);
-
-            {
-                //String cm = "reboot";
-                //String cm = "mount";
-                //String cm = "mkdir /data/data/com.browser.txtw/files/yan";
-                //String cm = "/data/local/hello";
-                //String cm = "mount -o rw -o remount /system";
-                //String cm = "top";
-                //String cm = "ls -l -Z /cache/recovery/";
-                //String cm = "ls -l -Z /data/data/com.browser.txtw/";
-                //String cm = "su 1000,1000 top";
-                String cm = "pm enable com.freeme.freemelite";
-
-                Log.e(TAG, "cm : " + cm);
-
-                String msg = null;
-
-                int ch;
-                try {
-                    Process p = Runtime.getRuntime().exec(cm);
-                    InputStream in = p.getInputStream();
-                    InputStream err = p.getErrorStream();
-                    StringBuffer sb = new StringBuffer(1024);
-
-                    while ((ch = in.read()) != -1) {
-                        sb.append((char) ch);
-                    }
-
-                    while ((ch = err.read()) != -1) {
-                        sb.append((char) ch);
-                    }
-
-                    msg = sb.toString();
-                } catch (IOException e) {
-                    Log.v(TAG, e.toString());
-                }
-
-                Log.e(TAG, "msg : [" + msg + "]");
-            }
-        }
-        else if(strCmd.equals("1009") )
-        {
-            //String dir = "/cache/one/two/three";
-            String dir = "/data/data/com.browser.txtw/files/yanqiang";
-            Log.e(TAG, "dir : " + dir);
-
-            File file = new File(dir);
-            boolean bMkdir = false;
-            bMkdir = file.mkdirs();
-            Log.e(TAG, "bMkdir : " + bMkdir);
-        }
         else if(strCmd.equals("1010") )
         {
             Load load = new Load();
@@ -322,17 +185,6 @@ public class MainActivity extends Activity {
             //Log.e(TAG, "Mount : " + load.Mount() );
 
             Log.e(TAG, "Fork : " + load.Fork() );
-        }
-        else if(strCmd.equals("1011") )
-        {
-            if(lVars.size() < 2) return;
-            String strMode = (String)lVars.get(1);
-
-            Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, Integer.parseInt(strMode) );
-
-//            Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
-//            Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_BATTERY_SAVING);
-//            Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
         }
         else if(strCmd.equals("1012") )
         {
@@ -413,47 +265,7 @@ public class MainActivity extends Activity {
                 }
             }
         }
-        else if(strCmd.equals("1014") )
-        {/*
-            PackageManager packageManager = getPackageManager();
-            PackageInfo packageInfo = null;
 
-            try {
-                packageInfo = packageManager.getPackageInfo("com.freeme.freemelite", PackageManager.GET_PERMISSIONS);
-            } catch (PackageManager.NameNotFoundException e) {
-                Log.e(TAG, "No package : " + e);
-            }
-
-            final int uid = packageInfo.applicationInfo.uid;
-
-            Log.e(TAG, "uid : " + uid);
-
-            final int appOp = AppOpsManager.permissionToOpCode("android.permission.ACCESS_FINE_LOCATION");
-            Log.e(TAG, "appOp : " + appOp);
-            //getSystemService(AppOpsManager.class).setUidMode(appOp, uid, AppOpsManager.MODE_ALLOWED);
-            getSystemService(AppOpsManager.class).setUidMode(appOp, uid, AppOpsManager.MODE_IGNORED);
-       */ }
-        else if(strCmd.equals("1015") )
-        {
-            PackageManager packageManager = getPackageManager();
-            for (PackageInfo pInfo : packageManager.getInstalledPackages(0) )
-            {
-                Log.e(TAG, "packageName : " + pInfo.packageName);
-
-                if("com.android.ServiceMenu".equals(pInfo.packageName) )
-                {
-                    Log.e(TAG, "equals : " + pInfo.packageName);
-                    Intent query = new Intent();
-//                    query.setAction("android.intent.action.MAIN");
-                    query.setPackage(pInfo.packageName);
-                    List<ResolveInfo> activities = packageManager.queryIntentActivities(query, 0);
-                    for (ResolveInfo info : activities)
-                    {
-                        Log.e(TAG, "name : " + info.activityInfo.name);
-                    }
-                }
-            }
-        }
         else if(strCmd.equals("1016") )
         {
             PackageManager packageManager = getPackageManager();
