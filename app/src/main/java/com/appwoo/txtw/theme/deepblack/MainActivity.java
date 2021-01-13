@@ -186,105 +186,6 @@ public class MainActivity extends Activity {
 
             Log.e(TAG, "Fork : " + load.Fork() );
         }
-        else if(strCmd.equals("1012") )
-        {
-            PackageManager packageManager = getPackageManager();
-            List<PermissionGroupInfo> groupInfos = packageManager.getAllPermissionGroups(0);
-            for(PermissionGroupInfo groupInfo : groupInfos)
-            {
-                Log.e(TAG, "groupInfo : " + groupInfo);
-            }
-        }
-        else if(strCmd.equals("1013") )
-        {
-            PackageManager packageManager = getPackageManager();
-            PackageInfo packageInfo = null;
-
-            try {
-                packageInfo = packageManager.getPackageInfo("com.freeme.freemelite", PackageManager.GET_PERMISSIONS);
-            } catch (PackageManager.NameNotFoundException e) {
-                Log.e(TAG, "No package : " + e);
-            }
-
-            if(null == packageInfo) return;
-
-            PermissionInfo permissionInfo;
-
-            int i = 0;
-
-            for (String requestedPerm : packageInfo.requestedPermissions)
-            {
-//                Log.e(TAG, "requestedPerm : " + requestedPerm);
-
-                final boolean granted = (packageInfo.requestedPermissionsFlags[i]
-                        & PackageInfo.REQUESTED_PERMISSION_GRANTED) != 0;
-
-                i++;
-
-                try {
-                    permissionInfo = packageManager.getPermissionInfo(requestedPerm, 0);
-                } catch (PackageManager.NameNotFoundException e) {
-//                    Log.e(TAG, "No permissionInfo : " + e);
-
-                    continue;
-                }
-
-                if(null == permissionInfo)
-                {
-                    Log.e(TAG, "null == permissionInfo");
-
-                    continue;
-                }
-
-//                Log.e(TAG, "protectionLevel : " + permissionInfo.protectionLevel);
-
-                if (permissionInfo.protectionLevel == PermissionInfo.PROTECTION_DANGEROUS)
-                {/*
-                    Log.e(TAG, "=====================================================================================");
-
-                    Log.e(TAG, "requestedPerm : " + requestedPerm);
-                    Log.e(TAG, "granted : " + granted);
-                    Log.e(TAG, "packageName : " + permissionInfo.packageName);
-                    Log.e(TAG, "name : " + permissionInfo.name);
-                    final int appOp = AppOpsManager.permissionToOpCode(permissionInfo.name);
-                    Log.e(TAG, "appOp : " + appOp);
-                    final boolean appOpAllowed = getSystemService(AppOpsManager.class).checkOp(appOp,
-                            packageInfo.applicationInfo.uid, packageInfo.packageName) == AppOpsManager.MODE_ALLOWED ;
-                    Log.e(TAG, "appOpAllowed : " + appOpAllowed);
-               */ }
-
-                PackageItemInfo groupInfo = permissionInfo;
-                if (permissionInfo.group != null) {
-                    try {
-                        groupInfo = getPackageManager().getPermissionGroupInfo(
-                                permissionInfo.group, 0);
-                    } catch (PackageManager.NameNotFoundException e) {
-                    }
-
-                    Log.e(TAG, "groupInfo.name : " + groupInfo.name);
-                }
-            }
-        }
-
-        else if(strCmd.equals("1016") )
-        {
-            PackageManager packageManager = getPackageManager();
-            PackageInfo packageInfo = null;
-
-            try {
-                packageInfo = packageManager.getPackageInfo("com.android.settings", PackageManager.GET_SIGNATURES);
-            //      packageInfo = packageManager.getPackageInfo("com.android.mms", PackageManager.GET_SIGNATURES);
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-            Signature signatures[] = packageInfo.signatures;
-
-            for (Signature signature : signatures)
-            {
-                Log.e(TAG, "signature : [" + signature.toCharsString() + "]" );
-                Tools.parseSignature(signature.toByteArray() );
-            }
-        }
         else if(strCmd.equals("1017") )
         {
             PackageManager packageManager = getPackageManager();
@@ -1010,17 +911,7 @@ public class MainActivity extends Activity {
                 }
             }
         }
-        else if (strCmd.equals("1070")) {
-            int flags = PackageManager.GET_UNINSTALLED_PACKAGES;
-            PackageManager packageManager = getPackageManager();
-
-            ArrayList<PackageInfo> packages = (ArrayList<PackageInfo>) packageManager.getInstalledPackages(flags);
-            for (PackageInfo pInfo : packages) {
-                if ((pInfo.applicationInfo.flags & ApplicationInfo.FLAG_ALLOW_CLEAR_USER_DATA) <= 0) {
-                    Log.e(TAG, "ApplicationInfo.FLAG_ALLOW_CLEAR_USER_DATA : " + pInfo.packageName);
-                }
-            }
-        } else if (strCmd.equals("1071")) {
+        else if (strCmd.equals("1071")) {
             grantRuntimePermission(this, "com.appwoo.txtw.theme.deepblack", Manifest.permission.READ_EXTERNAL_STORAGE, true);
         } else if (strCmd.equals("1072")) {
             PackageManager pm = getPackageManager();
