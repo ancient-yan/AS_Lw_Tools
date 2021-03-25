@@ -237,61 +237,6 @@ public class MainActivity extends Activity {
                 Log.e(TAG, "info : " + info);
             }
         }
-        else if(strCmd.equals("1020") )
-        {/*
-            File file = new File("/sdcard/Download/baidu.apk");
-            if(file.exists() )
-            {
-                Log.e(TAG, "exists : " + file + "   ok");
-            }
-            else
-            {
-                Log.e(TAG, "exists : " + file + "   fail");
-            }
-
-            PackageParser.ApkLite apk = null;
-            try {
-                apk = PackageParser.parseApkLite(file, PackageParser.PARSE_COLLECT_CERTIFICATES);
-            } catch (PackageParser.PackageParserException e) {
-                e.printStackTrace();
-            }
-
-            Log.e(TAG, "apk.packageName : " + apk.packageName);
-            Log.e(TAG, "apk.codePath : " + apk.codePath);
-            Log.e(TAG, "apk.splitName : " + apk.splitName);
-            Log.e(TAG, "apk.versionCode : " + apk.versionCode);
-
-            Signature signatures[] = apk.signatures;
-            for (Signature signature : signatures)
-            {
-                Log.e(TAG, "signature : [" + signature.toCharsString() + "]" );
-                Tools.parseSignature(signature.toByteArray() );
-            }
-        */}
-        else if(strCmd.equals("1021") )
-        {
-            IPackageManager packageManager =
-                    IPackageManager.Stub.asInterface(ServiceManager.getService("package"));
-            PackageDeleteObserver observer = new PackageDeleteObserver();
-
-            try {
-                packageManager.deletePackageAsUser("com.softboy.swf20", observer, 0, 0);
-//                packageManager.deletePackageAsUser("com.appwoo.txtw.theme.deepblack", observer, 0, 0);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        }
-        else if(strCmd.equals("1022") )
-        {
-            PackageManager packageManager = getPackageManager();
-            PackageInstallObserver observer = new PackageInstallObserver();
-
-            Uri uri = Uri.fromFile(new File("/sdcard/Download/zs_flash.apk") );
-
-            Log.e(TAG, "uri : " + uri);
-
-            packageManager.installPackage(uri, observer,PackageManager.INSTALL_REPLACE_EXISTING, "");
-        }
         else if(strCmd.equals("1023") )
         {
             PackageManager packageManager = getPackageManager();
